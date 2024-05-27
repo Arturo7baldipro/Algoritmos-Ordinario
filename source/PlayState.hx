@@ -15,7 +15,7 @@ class PlayState extends FlxState
 	var sombrero:FlxText;
 	var acesorio:FlxText;
 	var personajes = new FlxTypedGroup<FlxSprite>();
-	var etePersonajes:Array<String> = ['Pepe', 'Tematch', "Random1", "Random2", "Random3"];
+	var etePersonajes:Array<String> = ['Pepe', 'Tematch'];
 
 	override public function create()
 	{
@@ -40,7 +40,7 @@ class PlayState extends FlxState
 			var personaje:FlxSprite = new FlxSprite();
 			personaje = new Personaje(100, 0, etePersonajes[i]);
 			personaje.ID = i;
-			personaje.y = 60 + (i * 100);
+			personaje.x = 10 + (i * 200);
 			personajes.add(personaje);
 		}
 		var prueba = etePersonajes[1];
