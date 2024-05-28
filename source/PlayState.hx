@@ -15,47 +15,43 @@ class PlayState extends FlxState
 	var sombrero:FlxText;
 	var acesorio:FlxText;
 	var personajes = new FlxTypedGroup<FlxSprite>();
-	var etePersonajes:Array<String> = ['Pepe', 'Sech'];
+	var curPersonajes:Array<String> = ['Pepe', 'Sech'];
 
 	override public function create()
 	{
 		super.create();
-		/*
-				personaje = new Personaje(500, 100, "Tematch");
-				add(personaje);
-			 
-
-
-			acesorio = new FlxText(sombrero.x + 200);
-			acesorio.text = personaje.curAccesorio;
-			acesorio.antialiasing = false;
-			add(acesorio);
-		 */
 
 		personajes = new FlxTypedGroup<FlxSprite>();
 		add(personajes);
 
-		for (i in 0...etePersonajes.length)
+		// Crea los personajes
+		for (i in 0...curPersonajes.length)
 		{
 			var personaje:FlxSprite = new FlxSprite();
-			personaje = new Personaje(100, 0, etePersonajes[i]);
+			personaje = new Personaje(100, 0, curPersonajes[i]);
 			personaje.ID = i;
 			personaje.x = 10 + (i * 200);
 			personajes.add(personaje);
 		}
-		var prueba = etePersonajes[1];
 
-		var prueba = FlxG.random.int(0, etePersonajes.length);
+		// Para acceder aun sprite de un personaje
+		personajes.forEach(function(spr:FlxSprite)
+		{
+			if (spr.ID == 1)
+			{
+				spr.alpha = 0.6;
+			}
+		});
 	}
 
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		// Para detectar si funciona
+		// Prueba para detectar si funciona la busqueda lineal
 		if (FlxG.keys.justPressed.UP)
 		{
-			linealSearch(etePersonajes, "Sech");
+			linealSearch(curPersonajes, "Sech");
 		}
 	}
 
