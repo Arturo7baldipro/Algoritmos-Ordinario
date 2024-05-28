@@ -24,10 +24,10 @@ class Personaje extends FlxSprite
 				antialiasing = false;
 				curSombrero = "PlaceHolder";
 				curAccesorio = "Ninguno";
-			case "Tematch":
+			case "Sech":
 				loadGraphic("assets/images/PlaceHolder2.png");
 				antialiasing = false;
-				curSombrero = "Tematch";
+				curSombrero = "Sech";
 				curAccesorio = "bola";
 		}
 	}

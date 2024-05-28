@@ -15,7 +15,7 @@ class PlayState extends FlxState
 	var sombrero:FlxText;
 	var acesorio:FlxText;
 	var personajes = new FlxTypedGroup<FlxSprite>();
-	var etePersonajes:Array<String> = ['Pepe', 'Tematch'];
+	var etePersonajes:Array<String> = ['Pepe', 'Sech'];
 
 	override public function create()
 	{
@@ -46,13 +46,17 @@ class PlayState extends FlxState
 		var prueba = etePersonajes[1];
 
 		var prueba = FlxG.random.int(0, etePersonajes.length);
-
-		linealSearch(etePersonajes, "Tematch");
 	}
 
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		// Para detectar si funciona
+		if (FlxG.keys.justPressed.UP)
+		{
+			linealSearch(etePersonajes, "Sech");
+		}
 	}
 
 	// Funciona
