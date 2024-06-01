@@ -14,20 +14,21 @@ class PlayState extends FlxState
 	var nombre:FlxText;
 	var sombrero:FlxText;
 	var acesorio:FlxText;
-	var personajes = new FlxTypedGroup<FlxSprite>();
+	var personajes = new FlxTypedGroup<Personaje>();
 	var curPersonajes:Array<String> = ['Pepe', 'Sech'];
+	var arr:Array<Array<String>> = [[], [], []];
 
 	override public function create()
 	{
 		super.create();
 
-		personajes = new FlxTypedGroup<FlxSprite>();
+		personajes = new FlxTypedGroup<Personaje>();
 		add(personajes);
 
 		// Crea los personajes
 		for (i in 0...curPersonajes.length)
 		{
-			var personaje:FlxSprite = new FlxSprite();
+			var personaje:Personaje = new Personaje();
 			personaje = new Personaje(100, 0, curPersonajes[i]);
 			personaje.ID = i;
 			personaje.x = 10 + (i * 200);
@@ -35,7 +36,7 @@ class PlayState extends FlxState
 		}
 
 		// Para acceder aun sprite de un personaje
-		personajes.forEach(function(spr:FlxSprite)
+		personajes.forEach(function(spr:Personaje)
 		{
 			if (spr.ID == 1)
 			{
@@ -51,7 +52,7 @@ class PlayState extends FlxState
 		// Prueba para detectar si funciona la busqueda lineal
 		if (FlxG.keys.justPressed.UP)
 		{
-			linealSearch(curPersonajes, "Sech");
+			linealSearch(curPersonajes, "adrian");
 		}
 	}
 
