@@ -9,10 +9,6 @@ ExportiOS/
 
 haxelib/
 
-.project
-
-*.xml
-
 *.swf
 *.swc
 *.js
