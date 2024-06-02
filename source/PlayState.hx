@@ -80,7 +80,7 @@ class PlayState extends FlxState
 		{
 			if (spr.ID == 1)
 			{
-				if (inputText.text == spr.curCharacter)
+				if (inputText.text == spr.curCharacter && FlxG.keys.justPressed.ENTER)
 				{
 					flashScreen();
 					inputText.text = "";
