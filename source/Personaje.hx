@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
+import haxe.macro.Expr.Case;
 
 class Personaje extends FlxSprite
 {
@@ -51,6 +52,15 @@ class Personaje extends FlxSprite
 				curSombrero = "Sech";
 				curAccesorio = "bola";
 				curPelo = "Esponjado";
+				curPiel = "Cafe";
+				curSexo = "Hombre";
+			case "Juan":
+				loadGraphic("assets/images/Juan.png");
+				scale.set(0.5, 0.5);
+				antialiasing = false;
+				curSombrero = "si";
+				curAccesorio = "Ninguno";
+				curPelo = "Corto";
 				curPiel = "Cafe";
 				curSexo = "Hombre";
 		}

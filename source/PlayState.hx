@@ -15,7 +15,7 @@ class PlayState extends FlxState
 	var sombrero:FlxText;
 	var acesorio:FlxText;
 	var personajes = new FlxTypedGroup<Personaje>();
-	var curPersonajes:Array<String> = ['Pepe', 'Sech'];
+	var curPersonajes:Array<String> = ['Pepe', 'Sech', 'Juan'];
 	var arr:Array<Array<String>> = [[], [], []];
 
 	override public function create()
