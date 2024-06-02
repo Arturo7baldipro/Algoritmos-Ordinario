@@ -3,15 +3,11 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.addons.ui.FlxInputText;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
-
-using StringTools;
 
 class PlayState extends FlxState
 {
@@ -19,10 +15,11 @@ class PlayState extends FlxState
 	var sombrero:FlxText;
 	var acesorio:FlxText;
 	var personajes = new FlxTypedGroup<Personaje>();
-	var curPersonajes:Array<String> = ['Pepe', 'Sech', 'Juan'];
+	var curPersonajes:Array<String> = [
+		/*'Pepe', 'Sech'*/ 'Juan', 'Alejandro', 'Andrea', 'Andres', 'Pedro', 'Antonio', 'Adolf', 'Isabella', 'Jenkins', 'Carlos', 'Jun', 'Kazuma', 'Kevin',
+		'Leticia', 'Lucas', 'Lucy', 'Maria', 'Miyagi', 'Rafa', 'Raul', 'Regina', 'Roberto', 'Sofia', 'Travis', 'Valentina'
+	];
 	var arr:Array<Array<String>> = [[], [], []];
-	private var flashButton:FlxButton;
-	private var inputText:FlxInputText;
 
 	override public function create()
 	{
@@ -49,14 +46,6 @@ class PlayState extends FlxState
 				spr.alpha = 0.6;
 			}
 		});
-
-		// Testeo en los botones
-		flashButton = new FlxButton(FlxG.width / 2 - 40, FlxG.height / 2 - 20, "Ete boton", flashScreen);
-		add(flashButton);
-
-		inputText = new FlxInputText(FlxG.width / 2 - 80, FlxG.height / 2, 160, "");
-		inputText.maxLength = 10;
-		add(inputText);
 	}
 
 	override public function update(elapsed:Float)
@@ -68,25 +57,6 @@ class PlayState extends FlxState
 		{
 			linealSearch(curPersonajes, "adrian");
 		}
-
-		if (inputText.text == "Activo")
-		{
-			flashScreen();
-			inputText.text = ""; // Limpia todo el texto cuando se escribe
-		}
-
-		// Funciona (ahora mismo esta con las caracteristicas de sech)
-		personajes.forEach(function(spr:Personaje)
-		{
-			if (spr.ID == 1)
-			{
-				if (inputText.text == spr.curCharacter && FlxG.keys.justPressed.ENTER)
-				{
-					flashScreen();
-					inputText.text = "";
-				}
-			}
-		});
 	}
 
 	// Funciona
@@ -102,18 +72,6 @@ class PlayState extends FlxState
 		}
 	}
 
-	// Cosa del inputText
-	private function checkInputText(input:FlxInputText):Void
-	{
-		if (input.text == "Activo")
-		{
-			flashScreen();
-		}
-	}
-
-	private function flashScreen():Void
-	{
-		// Hacer que la pantalla parpadee (Para detectar si pasa algo)
-		FlxG.camera.flash(FlxColor.WHITE, 0.5);
-	}
+	// Inteligencia
+	public function InteligenciaInteligensiosa() {}
 }
