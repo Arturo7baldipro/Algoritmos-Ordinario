@@ -96,8 +96,6 @@ class PlayState extends FlxState
 		{
 			linealSearch(curPersonajes, "adrian");
 		}
-
-		// eliminar_Sin_Personaje_Caracteristica(curPersonajes, "Sombrero");
 	}
 
 	// Funciona
@@ -110,25 +108,6 @@ class PlayState extends FlxState
 				FlxG.camera.flash(FlxColor.RED, 1);
 			}
 			FlxG.camera.flash(FlxColor.BLUE, 1);
-		}
-	}
-
-	// Esto fue un bug pero por si acaso lo dejo por si lo necesitamos (Funciona)
-	public function eliminar_Sin_Personaje_Caracteristica(array:Array<String>, caracteristica:String)
-	{
-		for (i in 0...array.length)
-		{
-			personajes.forEach(function(spr:Personaje)
-			{
-				switch (caracteristica)
-				{
-					case "Sombrero":
-						if (spr.curSombrero == "no" || spr.curSombrero == "Ninguno")
-						{
-							spr.kill();
-						}
-				}
-			});
 		}
 	}
 
