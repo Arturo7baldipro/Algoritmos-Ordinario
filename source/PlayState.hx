@@ -15,8 +15,10 @@ class PlayState extends FlxState
 	var sombrero:FlxText;
 	var acesorio:FlxText;
 	var personajes = new FlxTypedGroup<Personaje>();
-	var curPersonajes:Array<String> = ['Pepe', 'Sech', 'Quaso'];
-	var arr:Array<Array<String>> = [[], [], []];
+	var curPersonajes:Array<String> = [
+		/*'Pepe', 'Sech'*/ 'Juan', 'Alejandro', 'Andrea', 'Andres', 'Pedro', 'Antonio', 'Adolf', 'Isabella', 'Jenkins', 'Carlos', 'Jun', 'Kazuma', 'Kevin',
+		'Leticia', 'Lucas', 'Lucy', 'Maria', 'Miyagi', 'Rafa', 'Raul', 'Regina', 'Roberto', 'Sofia', 'Travis', 'Valentina'
+	];
 
 	override public function create()
 	{
@@ -26,12 +28,46 @@ class PlayState extends FlxState
 		add(personajes);
 
 		// Crea los personajes
-		for (i in 0...curPersonajes.length)
+		for (i in 0...6)
 		{
 			var personaje:Personaje = new Personaje();
-			personaje = new Personaje(100, 0, curPersonajes[i]);
+			personaje = new Personaje(0, -20, curPersonajes[i]);
 			personaje.ID = i;
-			personaje.x = 10 + (i * 200);
+			personaje.x = 90 + (i * 170);
+			personaje.scale.set(0.5, 0.5);
+			personajes.add(personaje);
+		}
+
+		for (i in 6...12)
+		{
+			var personaje:Personaje = new Personaje();
+			personaje = new Personaje(0, -10, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = -930 + (i * 170);
+			personaje.y += 140;
+			personaje.scale.set(0.5, 0.5);
+			personajes.add(personaje);
+		}
+
+		for (i in 12...18)
+		{
+			var personaje:Personaje = new Personaje();
+			personaje = new Personaje(0, -10, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = -1950 + (i * 170);
+			personaje.y += 290;
+			personaje.scale.set(0.5, 0.5);
+			personajes.add(personaje);
+		}
+
+		for (i in 18...24)
+		{
+			var personaje:Personaje = new Personaje();
+			personaje = new Personaje(0, -10, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = -2970 + (i * 170);
+			personaje.y += 440;
+			personaje.scale.set(0.5, 0.5);
 			personajes.add(personaje);
 		}
 
@@ -46,7 +82,7 @@ class PlayState extends FlxState
 		{
 			if (spr.ID == 1)
 			{
-				spr.alpha = 0.6;
+				// spr.alpha = 0.6;
 			}
 		});
 	}
@@ -60,6 +96,8 @@ class PlayState extends FlxState
 		{
 			linealSearch(curPersonajes, "adrian");
 		}
+
+		// eliminar_Sin_Personaje_Caracteristica(curPersonajes, "Sombrero");
 	}
 
 	// Funciona
@@ -74,6 +112,28 @@ class PlayState extends FlxState
 			FlxG.camera.flash(FlxColor.BLUE, 1);
 		}
 	}
+
+	// Esto fue un bug pero por si acaso lo dejo por si lo necesitamos (Funciona)
+	public function eliminar_Sin_Personaje_Caracteristica(array:Array<String>, caracteristica:String)
+	{
+		for (i in 0...array.length)
+		{
+			personajes.forEach(function(spr:Personaje)
+			{
+				switch (caracteristica)
+				{
+					case "Sombrero":
+						if (spr.curSombrero == "no" || spr.curSombrero == "Ninguno")
+						{
+							spr.kill();
+						}
+				}
+			});
+		}
+	}
+
+	// Inteligencia
+	public function InteligenciaInteligensiosa() {}
 
 	// Función de comparación para ordenar alfabeticamente
 	public static function compareStrings(a:String, b:String):Int
