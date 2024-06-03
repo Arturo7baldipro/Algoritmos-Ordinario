@@ -19,7 +19,6 @@ class PlayState extends FlxState
 		/*'Pepe', 'Sech'*/ 'Juan', 'Alejandro', 'Andrea', 'Andres', 'Pedro', 'Antonio', 'Adolf', 'Isabella', 'Jenkins', 'Carlos', 'Jun', 'Kazuma', 'Kevin',
 		'Leticia', 'Lucas', 'Lucy', 'Maria', 'Miyagi', 'Rafa', 'Raul', 'Regina', 'Roberto', 'Sofia', 'Travis', 'Valentina'
 	];
-	var arr:Array<Array<String>> = [[], [], []];
 
 	override public function create()
 	{
@@ -29,12 +28,46 @@ class PlayState extends FlxState
 		add(personajes);
 
 		// Crea los personajes
-		for (i in 0...curPersonajes.length)
+		for (i in 0...6)
 		{
 			var personaje:Personaje = new Personaje();
-			personaje = new Personaje(100, 0, curPersonajes[i]);
+			personaje = new Personaje(0, -20, curPersonajes[i]);
 			personaje.ID = i;
-			personaje.x = 10 + (i * 200);
+			personaje.x = 90 + (i * 170);
+			personaje.scale.set(0.5, 0.5);
+			personajes.add(personaje);
+		}
+
+		for (i in 6...12)
+		{
+			var personaje:Personaje = new Personaje();
+			personaje = new Personaje(0, -10, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = -930 + (i * 170);
+			personaje.y += 140;
+			personaje.scale.set(0.5, 0.5);
+			personajes.add(personaje);
+		}
+
+		for (i in 12...18)
+		{
+			var personaje:Personaje = new Personaje();
+			personaje = new Personaje(0, -10, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = -1950 + (i * 170);
+			personaje.y += 290;
+			personaje.scale.set(0.5, 0.5);
+			personajes.add(personaje);
+		}
+
+		for (i in 18...24)
+		{
+			var personaje:Personaje = new Personaje();
+			personaje = new Personaje(0, -10, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = -2970 + (i * 170);
+			personaje.y += 440;
+			personaje.scale.set(0.5, 0.5);
 			personajes.add(personaje);
 		}
 
@@ -43,7 +76,7 @@ class PlayState extends FlxState
 		{
 			if (spr.ID == 1)
 			{
-				spr.alpha = 0.6;
+				// spr.alpha = 0.6;
 			}
 		});
 	}
