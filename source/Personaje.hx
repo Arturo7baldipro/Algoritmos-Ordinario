@@ -53,6 +53,14 @@ class Personaje extends FlxSprite
 				curPelo = "Esponjado";
 				curPiel = "Cafe";
 				curSexo = "Hombre";
+			case "Quaso":
+				loadGraphic("assets/images/PlaceHolder3.png");
+				antialiasing = false;
+				curSombrero = "Sech";
+				curAccesorio = "bola";
+				curPelo = "Esponjado";
+				curPiel = "Cafe";
+				curSexo = "Hombre";
 		}
 	}
 }
