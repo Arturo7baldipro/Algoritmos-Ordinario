@@ -71,6 +71,12 @@ class PlayState extends FlxState
 			personajes.add(personaje);
 		}
 
+		// Ordena los personajes alfabéticamente
+		curPersonajes = mergeSort(curPersonajes, compareStrings);
+
+		// Actualiza la posición de los personajes en la interfaz
+		updatePersonajesDisplay();
+
 		// Para acceder aun sprite de un personaje
 		personajes.forEach(function(spr:Personaje)
 		{
@@ -128,4 +134,90 @@ class PlayState extends FlxState
 
 	// Inteligencia
 	public function InteligenciaInteligensiosa() {}
+
+	// Función de comparación para ordenar alfabeticamente
+	public static function compareStrings(a:String, b:String):Int
+	{
+		a = a.toUpperCase();
+		b = b.toUpperCase();
+
+		if (a < b)
+		{
+			return -1;
+		}
+		else if (a > b)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	// Implementación de Merge Sort
+	public static function mergeSort(array:Array<String>, compare:Dynamic):Array<String>
+	{
+		if (array.length <= 1)
+		{
+			return array;
+		}
+
+		var middle:Int = Std.int(array.length / 2); // Convertir a entero
+		var left:Array<String> = mergeSort(array.slice(0, middle), compare);
+		var right:Array<String> = mergeSort(array.slice(middle, array.length), compare);
+
+		return merge(left, right, compare);
+	}
+
+	public static function merge(left:Array<String>, right:Array<String>, compare:Dynamic):Array<String>
+	{
+		var result:Array<String> = [];
+		var i:Int = 0;
+		var j:Int = 0;
+
+		while (i < left.length && j < right.length)
+		{
+			if (compare(left[i], right[j]) <= 0)
+			{
+				result.push(left[i]);
+				i++;
+			}
+			else
+			{
+				result.push(right[j]);
+				j++;
+			}
+		}
+
+		while (i < left.length)
+		{
+			result.push(left[i]);
+			i++;
+		}
+
+		while (j < right.length)
+		{
+			result.push(right[j]);
+			j++;
+		}
+
+		return result;
+	}
+
+	// Método para actualizar la interfaz gráfica con los personajes ordenados
+	public function updatePersonajesDisplay():Void
+	{
+		// Primero, eliminar todos los personajes actuales
+		personajes.clear();
+
+		// Crear y agregar los personajes en el orden correcto
+		for (i in 0...curPersonajes.length)
+		{
+			var personaje:Personaje = new Personaje(100, 0, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = 10 + (i * 200);
+			personajes.add(personaje);
+		}
+	}
 }
