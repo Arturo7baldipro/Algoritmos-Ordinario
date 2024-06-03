@@ -291,7 +291,7 @@ class Personaje extends FlxSprite
 				loadGraphic("assets/images/Roberto.png");
 				antialiasing = false;
 				curLentes = "si";
-				curSombrero = "no";
+				curSombrero = "si";
 				curPelo = "blanco";
 				curPiel = "clara";
 				curSexo = "hombre";
