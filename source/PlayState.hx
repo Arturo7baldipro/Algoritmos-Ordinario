@@ -91,7 +91,10 @@ class PlayState extends FlxState
 			linealSearch(curPersonajes, "adrian");
 		}
 
-		// eliminar_Sin_Personaje_Caracteristica(curPersonajes, "Sombrero");
+		if (FlxG.keys.justPressed.DOWN)
+		{
+			eliminar_Con_Personaje_Caracteristica(curPersonajes, "pelo");
+		}
 	}
 
 	// Funciona
@@ -110,16 +113,71 @@ class PlayState extends FlxState
 	// Esto fue un bug pero por si acaso lo dejo por si lo necesitamos (Funciona)
 	public function eliminar_Sin_Personaje_Caracteristica(array:Array<String>, caracteristica:String)
 	{
+		var curPersonajes:Array<String> = ["sombrero"];
+
 		for (i in 0...array.length)
 		{
-			personajes.forEach(function(spr:Personaje)
+			personajes.forEach(function(char:Personaje)
 			{
 				switch (caracteristica)
 				{
-					case "Sombrero":
-						if (spr.curSombrero == "no" || spr.curSombrero == "Ninguno")
+					case "sombrero":
+						if (char.curSombrero == "no" || char.curSombrero == "Ninguno")
 						{
-							spr.kill();
+							char.kill();
+						}
+				}
+			});
+		}
+	}
+
+	public function eliminar_Con_Personaje_Caracteristica(array:Array<String>, caracteristica:String)
+	{
+		for (i in 0...array.length)
+		{
+			personajes.forEach(function(char:Personaje)
+			{
+				switch (caracteristica)
+				{
+					case "sombrero":
+						if (char.curSombrero == "si")
+						{
+							char.kill();
+						}
+					case "pelo negro":
+						if (char.curPelo == "negro")
+						{
+							char.kill();
+						}
+					case "pelo cafe":
+						if (char.curPelo == "cafe")
+						{
+							char.kill();
+						}
+					case "pelo blanco":
+						if (char.curPelo == "blanco")
+						{
+							char.kill();
+						}
+					case "pelo wero":
+						if (char.curPelo == "wero")
+						{
+							char.kill();
+						}
+					case "pelo negrisro":
+						if (char.curPelo == "negrisro")
+						{
+							char.kill();
+						}
+					case "pelo peliroja":
+						if (char.curPelo == "peliroja")
+						{
+							char.kill();
+						}
+					case "lentes":
+						if (char.curLentes == "si")
+						{
+							char.kill();
 						}
 				}
 			});
