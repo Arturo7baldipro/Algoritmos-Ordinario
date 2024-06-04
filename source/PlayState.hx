@@ -70,7 +70,7 @@ class PlayState extends FlxState
 	// Inteligencia
 	public function InteligenciaInteligensiosa() {}
 
-	// Función de comparación para ordenación alfabética
+	// Función de comparación para ordenar alfabeticamente
 	public static function compareStrings(a:String, b:String):Int
 	{
 		a = a.toUpperCase();
@@ -147,7 +147,7 @@ class PlayState extends FlxState
 		createPersonajes();
 	}
 
-	// Método para crear y posicionar los personajes en el orden correcto
+	// Método para crear y posicionar los personajes
 	public function createPersonajes():Void
 	{
 		for (i in 0...6)
