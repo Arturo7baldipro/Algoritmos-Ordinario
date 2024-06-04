@@ -18,6 +18,7 @@ class PlayState extends FlxState
 	var nombre:FlxText;
 	var sombrero:FlxText;
 	var acesorio:FlxText;
+	var gameOver:Bool = false;
 	var personajes = new FlxTypedGroup<Personaje>();
 	var curPersonajes:Array<String> = ['Pepe', 'Sech'];
 	var arr:Array<Array<String>> = [[], [], []];
@@ -27,6 +28,8 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		super.create();
+
+		FlxG.mouse.visible = true;
 
 		personajes = new FlxTypedGroup<Personaje>();
 		add(personajes);
@@ -41,7 +44,7 @@ class PlayState extends FlxState
 			personajes.add(personaje);
 		}
 
-		// Para acceder aun sprite de un personaje
+		// Para acceder aun Personaje Especifico
 		personajes.forEach(function(spr:Personaje)
 		{
 			if (spr.ID == 1)
@@ -69,13 +72,18 @@ class PlayState extends FlxState
 			linealSearch(curPersonajes, "adrian");
 		}
 
+		if (FlxG.keys.justPressed.ESCAPE)
+		{
+			openSubState(new GameOverSubstate());
+		}
+
 		if (inputText.text == "Activo")
 		{
 			flashScreen();
 			inputText.text = ""; // Limpia todo el texto cuando se escribe
 		}
 
-		// Funciona (ahora mismo esta con las caracteristicas de sech)
+		// Funciona ((ahora mismo esta con las caracteristicas de sech))
 		personajes.forEach(function(spr:Personaje)
 		{
 			if (spr.ID == 1)
@@ -87,6 +95,9 @@ class PlayState extends FlxState
 				}
 			}
 		});
+
+		do {}
+		while (gameOver = false);
 	}
 
 	// Funciona
