@@ -56,7 +56,6 @@ class PlayState extends FlxState
 			linealSearch(curPersonajes, "adrian");
 		}
 
-
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
 			openSubState(new GameOverSubstate());
@@ -65,14 +64,7 @@ class PlayState extends FlxState
 		// Funciona ((ahora mismo esta con las caracteristicas de sech))
 		personajes.forEach(function(spr:Personaje)
 		{
-			if (spr.ID == 1)
-			{
-				if (inputText.text == spr.curCharacter && FlxG.keys.justPressed.ENTER)
-				{
-					flashScreen();
-					inputText.text = "";
-				}
-			}
+			if (spr.ID == 1) {}
 		});
 
 		do {}
