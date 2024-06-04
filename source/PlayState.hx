@@ -13,6 +13,7 @@ import flixel.util.FlxColor;
 class PlayState extends FlxState
 {
 	var gameOver:Bool = false;
+	var personajesNombres = new FlxTypedGroup<FlxText>();
 	var personajesPlayer = new FlxTypedGroup<Personaje>();
 	var curPersonajesPlayer:Array<String> = [
 		/*'Pepe', 'Sech'*/ 'Juan', 'Alejandro', 'Andrea', 'Andres', 'Pedro', 'Antonio', 'Adolf', 'Isabella', 'Jenkins', 'Carlos', 'Jun', 'Kazuma', 'Kevin',
@@ -267,18 +268,23 @@ class PlayState extends FlxState
 		personajesPlayer = new FlxTypedGroup<Personaje>();
 		add(personajesPlayer);
 
+		personajesNombres = new FlxTypedGroup<FlxText>();
+		add(personajesNombres);
+
 		// Ordena los personajesPlayer alfabéticamente
 		curPersonajesPlayer = mergeSort(curPersonajesPlayer, compareStrings);
 
 		// Crea los personajesPlayer
 		createPersonajesPlayer();
 
+		createNombresPlayer();
+
 		// Para acceder aun Personaje Especifico
 		personajesPlayer.forEach(function(spr:Personaje)
 		{
 			if (spr.ID == 1)
 			{
-				// spr.alpha = 0.6;
+				// spr.color = FlxColor.RED;
 			}
 		});
 	}
@@ -409,6 +415,7 @@ class PlayState extends FlxState
 			var personaje:Personaje = new Personaje(0, -20, curPersonajesPlayer[i]);
 			personaje.ID = i;
 			personaje.x = -50 + (i * 80);
+			personaje.y -= 30;
 			personaje.scale.set(0.25, 0.25);
 			personajesPlayer.add(personaje);
 		}
@@ -418,7 +425,7 @@ class PlayState extends FlxState
 			var personaje:Personaje = new Personaje(0, -10, curPersonajesPlayer[i]);
 			personaje.ID = i;
 			personaje.x = -530 + (i * 80);
-			personaje.y += 70;
+			personaje.y += 50;
 			personaje.scale.set(0.25, 0.25);
 			personajesPlayer.add(personaje);
 		}
@@ -428,7 +435,7 @@ class PlayState extends FlxState
 			var personaje:Personaje = new Personaje(0, -10, curPersonajesPlayer[i]);
 			personaje.ID = i;
 			personaje.x = -1010 + (i * 80);
-			personaje.y += 150;
+			personaje.y += 140;
 			personaje.scale.set(0.25, 0.25);
 			personajesPlayer.add(personaje);
 		}
@@ -441,6 +448,53 @@ class PlayState extends FlxState
 			personaje.y += 230;
 			personaje.scale.set(0.25, 0.25);
 			personajesPlayer.add(personaje);
+		}
+	}
+
+	public function createNombresPlayer():Void
+	{
+		for (i in 0...6)
+		{
+			var personajetxt:FlxText = new FlxText();
+			personajetxt.ID = i;
+			personajetxt.text = curPersonajesPlayer[i];
+			personajetxt.x = 60 + (i * 75);
+			personajetxt.y += 20;
+			personajetxt.size = 10;
+			personajesNombres.add(personajetxt);
+		}
+
+		for (i in 6...12)
+		{
+			var personajetxt:FlxText = new FlxText();
+			personajetxt.ID = i;
+			personajetxt.text = curPersonajesPlayer[i];
+			personajetxt.x = -420 + (i * 80);
+			personajetxt.size = 10;
+			personajetxt.y += 115;
+			personajesNombres.add(personajetxt);
+		}
+
+		for (i in 12...18)
+		{
+			var personajetxt:FlxText = new FlxText();
+			personajetxt.ID = i;
+			personajetxt.text = curPersonajesPlayer[i];
+			personajetxt.x = -900 + (i * 80);
+			personajetxt.size = 10;
+			personajetxt.y += 210;
+			personajesNombres.add(personajetxt);
+		}
+
+		for (i in 18...24)
+		{
+			var personajetxt:FlxText = new FlxText();
+			personajetxt.ID = i;
+			personajetxt.text = curPersonajesPlayer[i];
+			personajetxt.x = -1490 + (i * 85);
+			personajetxt.size = 10;
+			personajetxt.y += 300;
+			personajesNombres.add(personajetxt);
 		}
 	}
 
