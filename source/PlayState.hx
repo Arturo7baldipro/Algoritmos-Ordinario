@@ -72,10 +72,9 @@ class PlayState extends FlxState
 		}
 
 		// Ordena los personajes alfabéticamente
-		curPersonajes = mergeSort(curPersonajes, compareStrings);
 
 		// Actualiza la posición de los personajes en la interfaz
-		updatePersonajesDisplay();
+		// updatePersonajesDisplay();
 
 		// Para acceder aun sprite de un personaje
 		personajes.forEach(function(spr:Personaje)
@@ -113,29 +112,4 @@ class PlayState extends FlxState
 
 	// Inteligencia
 	public function InteligenciaInteligensiosa() {}
-
-	// Función de comparación para ordenar alfabeticamente
-	public static function compareStrings(a:String, b:String):Int
-	{
-
-		}
-
-		return result;
-	}
-
-	// Método para actualizar la interfaz gráfica con los personajes ordenados
-	public function updatePersonajesDisplay():Void
-	{
-		// Primero, eliminar todos los personajes actuales
-		personajes.clear();
-
-		// Crear y agregar los personajes en el orden correcto
-		for (i in 0...curPersonajes.length)
-		{
-			var personaje:Personaje = new Personaje(100, 0, curPersonajes[i]);
-			personaje.ID = i;
-			personaje.x = 10 + (i * 200);
-			personajes.add(personaje);
-		}
-	}
 }
