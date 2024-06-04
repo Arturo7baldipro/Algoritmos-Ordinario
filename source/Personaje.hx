@@ -312,7 +312,7 @@ class Personaje extends FlxSprite
 				curRopa = "traje";
 				curRaza = "caucasica";
 			case "Travis":
-				loadGraphic("assets/images/Kevin.png");
+				loadGraphic("assets/images/Travis.png");
 				antialiasing = false;
 				curLentes = "si";
 				curSombrero = "no";

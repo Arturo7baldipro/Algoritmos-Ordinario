@@ -28,7 +28,6 @@ class PlayState extends FlxState
 		add(personajes);
 
 		// Ordena los personajes alfabéticamente
-		curPersonajes = mergeSort(curPersonajes, compareStrings);
 
 		// Crea los personajes
 		createPersonajes();
