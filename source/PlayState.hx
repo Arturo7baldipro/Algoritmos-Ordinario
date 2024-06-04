@@ -13,8 +13,14 @@ import flixel.util.FlxColor;
 class PlayState extends FlxState
 {
 	var gameOver:Bool = false;
-	var personajes = new FlxTypedGroup<Personaje>();
-	var curPersonajes:Array<String> = [
+	var personajesPlayer = new FlxTypedGroup<Personaje>();
+	var curPersonajesPlayer:Array<String> = [
+		/*'Pepe', 'Sech'*/ 'Juan', 'Alejandro', 'Andrea', 'Andres', 'Pedro', 'Antonio', 'Adolf', 'Isabella', 'Jenkins', 'Carlos', 'Jun', 'Kazuma', 'Kevin',
+		'Leticia', 'Lucas', 'Lucy', 'Maria', 'Miyagi', 'Rafa', 'Raul', 'Regina', 'Roberto', 'Sofia', 'Travis', 'Valentina'
+	];
+
+	var personajesBot = new FlxTypedGroup<Personaje>();
+	var curPersonajesBot:Array<String> = [
 		/*'Pepe', 'Sech'*/ 'Juan', 'Alejandro', 'Andrea', 'Andres', 'Pedro', 'Antonio', 'Adolf', 'Isabella', 'Jenkins', 'Carlos', 'Jun', 'Kazuma', 'Kevin',
 		'Leticia', 'Lucas', 'Lucy', 'Maria', 'Miyagi', 'Rafa', 'Raul', 'Regina', 'Roberto', 'Sofia', 'Travis', 'Valentina'
 	];
@@ -258,17 +264,17 @@ class PlayState extends FlxState
 
 		FlxG.mouse.visible = true;
 
-		personajes = new FlxTypedGroup<Personaje>();
-		add(personajes);
+		personajesPlayer = new FlxTypedGroup<Personaje>();
+		add(personajesPlayer);
 
-		// Ordena los personajes alfabéticamente
-		curPersonajes = mergeSort(curPersonajes, compareStrings);
+		// Ordena los personajesPlayer alfabéticamente
+		curPersonajesPlayer = mergeSort(curPersonajesPlayer, compareStrings);
 
-		// Crea los personajes
-		createPersonajes();
+		// Crea los personajesPlayer
+		createPersonajesPlayer();
 
 		// Para acceder aun Personaje Especifico
-		personajes.forEach(function(spr:Personaje)
+		personajesPlayer.forEach(function(spr:Personaje)
 		{
 			if (spr.ID == 1)
 			{
@@ -284,7 +290,7 @@ class PlayState extends FlxState
 		// Prueba para detectar si funciona la busqueda lineal
 		if (FlxG.keys.justPressed.UP)
 		{
-			linealSearch(curPersonajes, "adrian");
+			linealSearch(curPersonajesPlayer, "adrian");
 		}
 
 		if (FlxG.keys.justPressed.ESCAPE)
@@ -293,7 +299,7 @@ class PlayState extends FlxState
 		}
 
 		// Funciona ((ahora mismo esta con las caracteristicas de sech))
-		personajes.forEach(function(spr:Personaje)
+		personajesPlayer.forEach(function(spr:Personaje)
 		{
 			if (spr.ID == 1) {}
 		});
@@ -388,53 +394,53 @@ class PlayState extends FlxState
 		return result;
 	}
 
-	// Método para actualizar la interfaz gráfica con los personajes ordenados
+	// Método para actualizar la interfaz gráfica con los personajesPlayer ordenados
 	public function updatePersonajesDisplay():Void
 	{
-		personajes.clear();
-		createPersonajes();
+		personajesPlayer.clear();
+		createPersonajesPlayer();
 	}
 
-	// Método para crear y posicionar los personajes
-	public function createPersonajes():Void
+	// Método para crear y posicionar los personajesPlayer
+	public function createPersonajesPlayer():Void
 	{
 		for (i in 0...6)
 		{
-			var personaje:Personaje = new Personaje(0, -20, curPersonajes[i]);
+			var personaje:Personaje = new Personaje(0, -20, curPersonajesPlayer[i]);
 			personaje.ID = i;
 			personaje.x = -50 + (i * 80);
 			personaje.scale.set(0.25, 0.25);
-			personajes.add(personaje);
+			personajesPlayer.add(personaje);
 		}
 
 		for (i in 6...12)
 		{
-			var personaje:Personaje = new Personaje(0, -10, curPersonajes[i]);
+			var personaje:Personaje = new Personaje(0, -10, curPersonajesPlayer[i]);
 			personaje.ID = i;
 			personaje.x = -530 + (i * 80);
 			personaje.y += 70;
 			personaje.scale.set(0.25, 0.25);
-			personajes.add(personaje);
+			personajesPlayer.add(personaje);
 		}
 
 		for (i in 12...18)
 		{
-			var personaje:Personaje = new Personaje(0, -10, curPersonajes[i]);
+			var personaje:Personaje = new Personaje(0, -10, curPersonajesPlayer[i]);
 			personaje.ID = i;
 			personaje.x = -1010 + (i * 80);
 			personaje.y += 150;
 			personaje.scale.set(0.25, 0.25);
-			personajes.add(personaje);
+			personajesPlayer.add(personaje);
 		}
 
 		for (i in 18...24)
 		{
-			var personaje:Personaje = new Personaje(0, -10, curPersonajes[i]);
+			var personaje:Personaje = new Personaje(0, -10, curPersonajesPlayer[i]);
 			personaje.ID = i;
 			personaje.x = -1490 + (i * 80);
 			personaje.y += 230;
 			personaje.scale.set(0.25, 0.25);
-			personajes.add(personaje);
+			personajesPlayer.add(personaje);
 		}
 	}
 
