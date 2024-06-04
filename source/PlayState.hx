@@ -3,15 +3,11 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.addons.ui.FlxInputText;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
-
-using StringTools;
 
 class PlayState extends FlxState
 {
@@ -20,10 +16,10 @@ class PlayState extends FlxState
 	var acesorio:FlxText;
 	var gameOver:Bool = false;
 	var personajes = new FlxTypedGroup<Personaje>();
-	var curPersonajes:Array<String> = ['Pepe', 'Sech'];
-	var arr:Array<Array<String>> = [[], [], []];
-	private var flashButton:FlxButton;
-	private var inputText:FlxInputText;
+	var curPersonajes:Array<String> = [
+		/*'Pepe', 'Sech'*/ 'Juan', 'Alejandro', 'Andrea', 'Andres', 'Pedro', 'Antonio', 'Adolf', 'Isabella', 'Jenkins', 'Carlos', 'Jun', 'Kazuma', 'Kevin',
+		'Leticia', 'Lucas', 'Lucy', 'Maria', 'Miyagi', 'Rafa', 'Raul', 'Regina', 'Roberto', 'Sofia', 'Travis', 'Valentina'
+	];
 
 	override public function create()
 	{
@@ -34,32 +30,20 @@ class PlayState extends FlxState
 		personajes = new FlxTypedGroup<Personaje>();
 		add(personajes);
 
+		// Ordena los personajes alfabéticamente
+		curPersonajes = mergeSort(curPersonajes, compareStrings);
+
 		// Crea los personajes
-		for (i in 0...curPersonajes.length)
-		{
-			var personaje:Personaje = new Personaje();
-			personaje = new Personaje(100, 0, curPersonajes[i]);
-			personaje.ID = i;
-			personaje.x = 10 + (i * 200);
-			personajes.add(personaje);
-		}
+		createPersonajes();
 
 		// Para acceder aun Personaje Especifico
 		personajes.forEach(function(spr:Personaje)
 		{
 			if (spr.ID == 1)
 			{
-				spr.alpha = 0.6;
+				// spr.alpha = 0.6;
 			}
 		});
-
-		// Testeo en los botones
-		flashButton = new FlxButton(FlxG.width / 2 - 40, FlxG.height / 2 - 20, "Ete boton", flashScreen);
-		add(flashButton);
-
-		inputText = new FlxInputText(FlxG.width / 2 - 80, FlxG.height / 2, 160, "");
-		inputText.maxLength = 10;
-		add(inputText);
 	}
 
 	override public function update(elapsed:Float)
@@ -72,15 +56,10 @@ class PlayState extends FlxState
 			linealSearch(curPersonajes, "adrian");
 		}
 
+
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
 			openSubState(new GameOverSubstate());
-		}
-
-		if (inputText.text == "Activo")
-		{
-			flashScreen();
-			inputText.text = ""; // Limpia todo el texto cuando se escribe
 		}
 
 		// Funciona ((ahora mismo esta con las caracteristicas de sech))
@@ -113,18 +92,126 @@ class PlayState extends FlxState
 		}
 	}
 
-	// Cosa del inputText
-	private function checkInputText(input:FlxInputText):Void
+	// Inteligencia
+	public function InteligenciaInteligensiosa() {}
+
+	// Función de comparación para ordenar alfabeticamente
+	public static function compareStrings(a:String, b:String):Int
 	{
-		if (input.text == "Activo")
+		a = a.toUpperCase();
+		b = b.toUpperCase();
+
+		if (a < b)
 		{
-			flashScreen();
+			return -1;
+		}
+		else if (a > b)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
 		}
 	}
 
-	private function flashScreen():Void
+	// Implementación de Merge Sort
+	public static function mergeSort(array:Array<String>, compare:Dynamic):Array<String>
 	{
-		// Hacer que la pantalla parpadee (Para detectar si pasa algo)
-		FlxG.camera.flash(FlxColor.WHITE, 0.5);
+		if (array.length <= 1)
+		{
+			return array;
+		}
+
+		var middle:Int = Std.int(array.length / 2);
+		var left:Array<String> = mergeSort(array.slice(0, middle), compare);
+		var right:Array<String> = mergeSort(array.slice(middle, array.length), compare);
+
+		return merge(left, right, compare);
+	}
+
+	public static function merge(left:Array<String>, right:Array<String>, compare:Dynamic):Array<String>
+	{
+		var result:Array<String> = [];
+		var i:Int = 0;
+		var j:Int = 0;
+
+		while (i < left.length && j < right.length)
+		{
+			if (compare(left[i], right[j]) <= 0)
+			{
+				result.push(left[i]);
+				i++;
+			}
+			else
+			{
+				result.push(right[j]);
+				j++;
+			}
+		}
+
+		while (i < left.length)
+		{
+			result.push(left[i]);
+			i++;
+		}
+
+		while (j < right.length)
+		{
+			result.push(right[j]);
+			j++;
+		}
+
+		return result;
+	}
+
+	// Método para actualizar la interfaz gráfica con los personajes ordenados
+	public function updatePersonajesDisplay():Void
+	{
+		personajes.clear();
+		createPersonajes();
+	}
+
+	// Método para crear y posicionar los personajes
+	public function createPersonajes():Void
+	{
+		for (i in 0...6)
+		{
+			var personaje:Personaje = new Personaje(0, -20, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = 90 + (i * 170);
+			personaje.scale.set(0.5, 0.5);
+			personajes.add(personaje);
+		}
+
+		for (i in 6...12)
+		{
+			var personaje:Personaje = new Personaje(0, -10, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = -930 + (i * 170);
+			personaje.y += 140;
+			personaje.scale.set(0.5, 0.5);
+			personajes.add(personaje);
+		}
+
+		for (i in 12...18)
+		{
+			var personaje:Personaje = new Personaje(0, -10, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = -1950 + (i * 170);
+			personaje.y += 290;
+			personaje.scale.set(0.5, 0.5);
+			personajes.add(personaje);
+		}
+
+		for (i in 18...24)
+		{
+			var personaje:Personaje = new Personaje(0, -10, curPersonajes[i]);
+			personaje.ID = i;
+			personaje.x = -2970 + (i * 170);
+			personaje.y += 440;
+			personaje.scale.set(0.5, 0.5);
+			personajes.add(personaje);
+		}
 	}
 }
