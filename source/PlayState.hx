@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.addons.ui.FlxInputText;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -16,21 +17,22 @@ class PlayState extends FlxState
 	var personajesNombres = new FlxTypedGroup<FlxText>();
 	var personajesPlayer = new FlxTypedGroup<Personaje>();
 	var curPersonajesPlayer:Array<String> = [
-		/*'Pepe', 'Sech'*/ 'Juan', 'Alejandro', 'Andrea', 'Andres', 'Pedro', 'Antonio', 'Adolf', 'Isabella', 'Jenkins', 'Carlos', 'Jun', 'Kazuma', 'Kevin',
-		'Leticia', 'Lucas', 'Lucy', 'Maria', 'Miyagi', 'Rafa', 'Raul', 'Regina', 'Roberto', 'Sofia', 'Travis', 'Valentina'
+		/*'Pepe', 'Sech'*/ 'juan', 'alejandro', 'andrea', 'andres', 'pedro', 'antonio', 'adolf', 'isabella', 'jenkins', 'carlos', 'jun', 'kazuma', 'kevin',
+		'leticia', 'lucas', 'lucy', 'maria', 'miyagi', 'rafa', 'raul', 'regina', 'roberto', 'sofia', 'travis', 'valentina'
 	];
 
 	var personajesBot = new FlxTypedGroup<Personaje>();
 	var curPersonajesBot:Array<String> = [
-		/*'Pepe', 'Sech'*/ 'Juan', 'Alejandro', 'Andrea', 'Andres', 'Pedro', 'Antonio', 'Adolf', 'Isabella', 'Jenkins', 'Carlos', 'Jun', 'Kazuma', 'Kevin',
-		'Leticia', 'Lucas', 'Lucy', 'Maria', 'Miyagi', 'Rafa', 'Raul', 'Regina', 'Roberto', 'Sofia', 'Travis', 'Valentina'
+		/*'Pepe', 'Sech'*/ 'juan', 'alejandro', 'andrea', 'andres', 'pedro', 'antonio', 'adolf', 'isabella', 'jenkins', 'carlos', 'jun', 'kazuma', 'kevin',
+		'leticia', 'lucas', 'lucy', 'maria', 'miyagi', 'rafa', 'raul', 'regina', 'roberto', 'sofia', 'travis', 'valentina'
 	];
+	private var inputText:FlxInputText;
 
 	override public function create()
 	{
 		super.create();
 
-		// BTS = Button Si, BTN = Button No, TXT == text
+		// BTS = Button Si, TXT == text
 
 		var afroamericanoTXT:FlxText = new FlxText(3, 388);
 		afroamericanoTXT.text = "Afroamericano";
@@ -40,9 +42,6 @@ class PlayState extends FlxState
 		var afroamericanoBTS:FlxButton = new FlxButton(afroamericanoTXT.x + 90, afroamericanoTXT.y, "Si", afroamericanoFunction_SI);
 		add(afroamericanoBTS);
 
-		var afroamericanoBTN:FlxButton = new FlxButton(afroamericanoBTS.x + 80, afroamericanoTXT.y, "No", afroamericanoFunction_NO);
-		add(afroamericanoBTN);
-
 		var caucasicoTXT:FlxText = new FlxText(3, afroamericanoTXT.y + 20);
 		caucasicoTXT.text = "Caucastico";
 		caucasicoTXT.size = 10;
@@ -50,9 +49,6 @@ class PlayState extends FlxState
 
 		var caucasicoBTS:FlxButton = new FlxButton(caucasicoTXT.x + 90, caucasicoTXT.y, "Si", caucasicoFunction_SI);
 		add(caucasicoBTS);
-
-		var caucasicoBTN:FlxButton = new FlxButton(caucasicoBTS.x + 80, caucasicoTXT.y, "No", caucasicoFunction_NO);
-		add(caucasicoBTN);
 
 		var asiaticoTXT:FlxText = new FlxText(3, caucasicoTXT.y + 20);
 		asiaticoTXT.text = "Asiatico";
@@ -62,9 +58,6 @@ class PlayState extends FlxState
 		var asiaticoBTS:FlxButton = new FlxButton(caucasicoTXT.x + 90, asiaticoTXT.y, "Si", caucasicoFunction_SI);
 		add(asiaticoBTS);
 
-		var asiaticoBTN:FlxButton = new FlxButton(asiaticoBTS.x + 80, asiaticoTXT.y, "No", caucasicoFunction_NO);
-		add(asiaticoBTN);
-
 		var playeraTXT:FlxText = new FlxText(3, asiaticoTXT.y + 20);
 		playeraTXT.text = "Playera";
 		playeraTXT.size = 10;
@@ -72,9 +65,6 @@ class PlayState extends FlxState
 
 		var playeraBTS:FlxButton = new FlxButton(playeraTXT.x + 90, playeraTXT.y, "Si", playeraFunction_SI);
 		add(playeraBTS);
-
-		var playeraBTN:FlxButton = new FlxButton(asiaticoBTS.x + 80, playeraTXT.y, "No", playeraFunction_NO);
-		add(playeraBTN);
 
 		var sueterTXT:FlxText = new FlxText(3, playeraTXT.y + 20);
 		sueterTXT.text = "Sueter";
@@ -84,9 +74,6 @@ class PlayState extends FlxState
 		var sueterBTS:FlxButton = new FlxButton(sueterTXT.x + 90, sueterTXT.y, "Si", sueterFunction_SI);
 		add(sueterBTS);
 
-		var sueterBTN:FlxButton = new FlxButton(sueterBTS.x + 80, sueterTXT.y, "No", sueterFunction_NO);
-		add(sueterBTN);
-
 		var trajeTXT:FlxText = new FlxText(3, sueterTXT.y + 20);
 		trajeTXT.text = "Traje";
 		trajeTXT.size = 10;
@@ -94,9 +81,6 @@ class PlayState extends FlxState
 
 		var trajeBTS:FlxButton = new FlxButton(trajeTXT.x + 90, trajeTXT.y, "Si", trajeFunction_SI);
 		add(trajeBTS);
-
-		var trajeBTN:FlxButton = new FlxButton(trajeBTS.x + 80, trajeTXT.y, "No", trajeFunction_NO);
-		add(trajeBTN);
 
 		var blusaTXT:FlxText = new FlxText(3, trajeTXT.y + 20);
 		blusaTXT.text = "Blusa";
@@ -106,9 +90,6 @@ class PlayState extends FlxState
 		var blusaBTS:FlxButton = new FlxButton(blusaTXT.x + 90, blusaTXT.y, "Si", blusaFunction_SI);
 		add(blusaBTS);
 
-		var blusaBTN:FlxButton = new FlxButton(blusaBTS.x + 80, blusaTXT.y, "No", blusaFunction_NO);
-		add(blusaBTN);
-
 		var gorraTXT:FlxText = new FlxText(3, blusaTXT.y + 20);
 		gorraTXT.text = "Gorra";
 		gorraTXT.size = 10;
@@ -116,9 +97,6 @@ class PlayState extends FlxState
 
 		var gorraBTS:FlxButton = new FlxButton(gorraTXT.x + 90, gorraTXT.y, "Si", gorraFunction_SI);
 		add(gorraBTS);
-
-		var gorraBTN:FlxButton = new FlxButton(gorraBTS.x + 80, gorraTXT.y, "No", gorraFunction_NO);
-		add(gorraBTN);
 
 		var peloNegroTXT:FlxText = new FlxText(3, gorraTXT.y + 20);
 		peloNegroTXT.text = "Pelo Negro";
@@ -128,9 +106,6 @@ class PlayState extends FlxState
 		var peloNegroBTS:FlxButton = new FlxButton(peloNegroTXT.x + 90, peloNegroTXT.y, "Si", peloCafeFunction_SI);
 		add(peloNegroBTS);
 
-		var peloNegroBTN:FlxButton = new FlxButton(peloNegroBTS.x + 80, peloNegroTXT.y, "No", peloCafeFunction_NO);
-		add(peloNegroBTN);
-
 		var peloCafeTXT:FlxText = new FlxText(3, peloNegroTXT.y + 20);
 		peloCafeTXT.text = "Pelo Cafe";
 		peloCafeTXT.size = 10;
@@ -138,9 +113,6 @@ class PlayState extends FlxState
 
 		var peloCafeBTS:FlxButton = new FlxButton(peloCafeTXT.x + 90, peloCafeTXT.y, "Si", peloNegroFunction_SI);
 		add(peloCafeBTS);
-
-		var peloCafeBTN:FlxButton = new FlxButton(peloCafeBTS.x + 80, peloCafeTXT.y, "No", peloNegroFunction_NO);
-		add(peloCafeBTN);
 
 		var peloWeroTXT:FlxText = new FlxText(3, peloCafeTXT.y + 20);
 		peloWeroTXT.text = "Pelo Wero";
@@ -150,9 +122,6 @@ class PlayState extends FlxState
 		var peloWeroBTS:FlxButton = new FlxButton(peloWeroTXT.x + 90, peloWeroTXT.y, "Si", peloWeroFunction_SI);
 		add(peloWeroBTS);
 
-		var peloWeroBTN:FlxButton = new FlxButton(peloWeroBTS.x + 80, peloWeroTXT.y, "No", peloWeroFunction_NO);
-		add(peloWeroBTN);
-
 		var peloPelirojoTXT:FlxText = new FlxText(3, peloWeroTXT.y + 20);
 		peloPelirojoTXT.text = "Pelo Pelirojo";
 		peloPelirojoTXT.size = 10;
@@ -160,9 +129,6 @@ class PlayState extends FlxState
 
 		var peloPelirojoBTS:FlxButton = new FlxButton(peloPelirojoTXT.x + 90, peloPelirojoTXT.y, "Si", peloPelirojoFunction_SI);
 		add(peloPelirojoBTS);
-
-		var peloPelirojoBTN:FlxButton = new FlxButton(peloPelirojoBTS.x + 80, peloPelirojoTXT.y, "No", peloPelirojoFunction_NO);
-		add(peloPelirojoBTN);
 
 		var pielOscuraTXT:FlxText = new FlxText(3, peloPelirojoTXT.y + 20);
 		pielOscuraTXT.text = "Piel Oscura";
@@ -172,9 +138,6 @@ class PlayState extends FlxState
 		var pielOscuraBTS:FlxButton = new FlxButton(pielOscuraTXT.x + 90, pielOscuraTXT.y, "Si", pielOscuraFunction_SI);
 		add(pielOscuraBTS);
 
-		var pielOscuraBTN:FlxButton = new FlxButton(pielOscuraBTS.x + 80, pielOscuraTXT.y, "No", pielOscuraFunction_NO);
-		add(pielOscuraBTN);
-
 		var pielCafeTXT:FlxText = new FlxText(3, pielOscuraTXT.y + 20);
 		pielCafeTXT.text = "Piel Cafe";
 		pielCafeTXT.size = 10;
@@ -182,9 +145,6 @@ class PlayState extends FlxState
 
 		var pielCafeBTS:FlxButton = new FlxButton(pielCafeTXT.x + 90, pielCafeTXT.y, "Si", pielCafeFunction_SI);
 		add(pielCafeBTS);
-
-		var pielCafeBTN:FlxButton = new FlxButton(pielCafeBTS.x + 80, pielCafeTXT.y, "No", pielCafeFunction_NO);
-		add(pielCafeBTN);
 
 		var pielClaraTXT:FlxText = new FlxText(3, pielCafeTXT.y + 20);
 		pielClaraTXT.text = "Piel Clara";
@@ -194,9 +154,6 @@ class PlayState extends FlxState
 		var pielClaraBTS:FlxButton = new FlxButton(pielClaraTXT.x + 90, pielClaraTXT.y, "Si", pielClaraFunction_SI);
 		add(pielClaraBTS);
 
-		var pielClaraBTN:FlxButton = new FlxButton(pielClaraBTS.x + 80, pielClaraTXT.y, "No", pielClaraFunction_NO);
-		add(pielClaraBTN);
-
 		var hombreTXT:FlxText = new FlxText(afroamericanoTXT.x + 260, 388);
 		hombreTXT.text = "Hombre";
 		hombreTXT.size = 10;
@@ -204,9 +161,6 @@ class PlayState extends FlxState
 
 		var hombreBTS:FlxButton = new FlxButton(hombreTXT.x + 90, hombreTXT.y, "Si", hombreFunction_SI);
 		add(hombreBTS);
-
-		var hombreBTN:FlxButton = new FlxButton(hombreBTS.x + 80, hombreTXT.y, "No", hombreFunction_NO);
-		add(hombreBTN);
 
 		var mujerTXT:FlxText = new FlxText(afroamericanoTXT.x + 260, hombreTXT.y + 20);
 		mujerTXT.text = "Mujer";
@@ -216,9 +170,6 @@ class PlayState extends FlxState
 		var mujerBTS:FlxButton = new FlxButton(mujerTXT.x + 90, mujerTXT.y, "Si", mujerFunction_SI);
 		add(mujerBTS);
 
-		var mujerBTN:FlxButton = new FlxButton(mujerBTS.x + 80, mujerTXT.y, "No", mujerFunction_NO);
-		add(mujerBTN);
-
 		var jovenTXT:FlxText = new FlxText(afroamericanoTXT.x + 260, mujerTXT.y + 20);
 		jovenTXT.text = "Joven";
 		jovenTXT.size = 10;
@@ -226,9 +177,6 @@ class PlayState extends FlxState
 
 		var jovenBTS:FlxButton = new FlxButton(jovenTXT.x + 90, jovenTXT.y, "Si", jovenFunction_SI);
 		add(jovenBTS);
-
-		var jovenBTN:FlxButton = new FlxButton(jovenBTS.x + 80, jovenTXT.y, "No", jovenFunction_NO);
-		add(jovenBTN);
 
 		var mayorTXT:FlxText = new FlxText(afroamericanoTXT.x + 260, jovenTXT.y + 20);
 		mayorTXT.text = "Mayor";
@@ -238,9 +186,6 @@ class PlayState extends FlxState
 		var mayorBTS:FlxButton = new FlxButton(mayorTXT.x + 90, mayorTXT.y, "Si", mayorFunction_SI);
 		add(mayorBTS);
 
-		var mayorBTN:FlxButton = new FlxButton(mayorBTS.x + 80, mayorTXT.y, "No", mayorFunction_NO);
-		add(mayorBTN);
-
 		var belloFacialTXT:FlxText = new FlxText(afroamericanoTXT.x + 260, mayorTXT.y + 20);
 		belloFacialTXT.text = "Bello Facial";
 		belloFacialTXT.size = 10;
@@ -249,9 +194,6 @@ class PlayState extends FlxState
 		var belloFacialBTS:FlxButton = new FlxButton(belloFacialTXT.x + 90, belloFacialTXT.y, "Si", belloFacialFunction_SI);
 		add(belloFacialBTS);
 
-		var belloFacialBTN:FlxButton = new FlxButton(belloFacialBTS.x + 80, belloFacialTXT.y, "No", belloFacialFunction_NO);
-		add(belloFacialBTN);
-
 		var lentesTXT:FlxText = new FlxText(afroamericanoTXT.x + 260, belloFacialTXT.y + 20);
 		lentesTXT.text = "Lentes";
 		lentesTXT.size = 10;
@@ -259,9 +201,6 @@ class PlayState extends FlxState
 
 		var lentesBTS:FlxButton = new FlxButton(lentesTXT.x + 90, lentesTXT.y, "Si", lentesFunction_SI);
 		add(lentesBTS);
-
-		var lentesBTN:FlxButton = new FlxButton(lentesBTS.x + 80, lentesTXT.y, "No", lentesFunction_NO);
-		add(lentesBTN);
 
 		FlxG.mouse.visible = true;
 
@@ -287,6 +226,15 @@ class PlayState extends FlxState
 				// spr.color = FlxColor.RED;
 			}
 		});
+
+		inputText = new FlxInputText(335, 582, 100, "");
+		inputText.maxLength = 10;
+		add(inputText);
+
+		var inputTXT:FlxText = new FlxText(inputText.x, inputText.y - 20);
+		inputTXT.text = "Introducir Personaje";
+		inputTXT.size = 10;
+		add(inputTXT);
 	}
 
 	override public function update(elapsed:Float)
@@ -307,7 +255,20 @@ class PlayState extends FlxState
 		// Funciona ((ahora mismo esta con las caracteristicas de sech))
 		personajesPlayer.forEach(function(spr:Personaje)
 		{
-			if (spr.ID == 1) {}
+			if (spr.ID == 1)
+			{
+				//
+			}
+		});
+
+		// Funciona (ahora mismo esta con las caracteristicas de sech)
+		personajesPlayer.forEach(function(spr:Personaje)
+		{
+			if (inputText.text == spr.curCharacter && FlxG.keys.justPressed.ENTER)
+			{
+				spr.kill();
+				inputText.text = "";
+			}
 		});
 
 		do {}
@@ -398,6 +359,11 @@ class PlayState extends FlxState
 		}
 
 		return result;
+	}
+
+	private function onTextChanged(inputText:FlxInputText):Void
+	{
+		// Convertir texto a minúsculas
 	}
 
 	// Método para actualizar la interfaz gráfica con los personajesPlayer ordenados
@@ -498,14 +464,15 @@ class PlayState extends FlxState
 		}
 	}
 
+	private function flashScreen():Void
+	{
+		// Hacer que la pantalla parpadee (Para detectar si pasa algo)
+		FlxG.camera.flash(FlxColor.WHITE, 0.5);
+	}
+
 	public function afroamericanoFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function afroamericanoFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 
 	public function caucasicoFunction_SI()
@@ -513,19 +480,9 @@ class PlayState extends FlxState
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
 
-	public function caucasicoFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
-	}
-
 	public function asiaticoFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function asiaticoFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 
 	public function playeraFunction_SI()
@@ -533,19 +490,9 @@ class PlayState extends FlxState
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
 
-	public function playeraFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
-	}
-
 	public function sueterFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function sueterFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 
 	public function trajeFunction_SI()
@@ -553,19 +500,9 @@ class PlayState extends FlxState
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
 
-	public function trajeFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
-	}
-
 	public function blusaFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function blusaFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 
 	public function gorraFunction_SI()
@@ -573,19 +510,9 @@ class PlayState extends FlxState
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
 
-	public function gorraFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
-	}
-
 	public function peloNegroFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function peloNegroFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 
 	public function peloCafeFunction_SI()
@@ -593,19 +520,9 @@ class PlayState extends FlxState
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
 
-	public function peloCafeFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
-	}
-
 	public function peloWeroFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function peloWeroFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 
 	public function peloPelirojoFunction_SI()
@@ -613,19 +530,9 @@ class PlayState extends FlxState
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
 
-	public function peloPelirojoFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
-	}
-
 	public function pielOscuraFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function pielOscuraFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 
 	public function pielCafeFunction_SI()
@@ -633,19 +540,9 @@ class PlayState extends FlxState
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
 
-	public function pielCafeFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
-	}
-
 	public function pielClaraFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function pielClaraFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 
 	public function hombreFunction_SI()
@@ -653,19 +550,9 @@ class PlayState extends FlxState
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
 
-	public function hombreFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
-	}
-
 	public function mujerFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function mujerFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 
 	public function jovenFunction_SI()
@@ -673,19 +560,9 @@ class PlayState extends FlxState
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
 
-	public function jovenFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
-	}
-
 	public function mayorFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function mayorFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 
 	public function belloFacialFunction_SI()
@@ -693,18 +570,8 @@ class PlayState extends FlxState
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
 
-	public function belloFacialFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
-	}
-
 	public function lentesFunction_SI()
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
-	}
-
-	public function lentesFunction_NO()
-	{
-		FlxG.camera.flash(FlxColor.BLUE, 1);
 	}
 }
