@@ -207,6 +207,9 @@ class PlayState extends FlxState
 		personajesPlayer = new FlxTypedGroup<Personaje>();
 		add(personajesPlayer);
 
+		personajesBot = new FlxTypedGroup<Personaje>();
+		add(personajesBot);
+
 		personajesNombres = new FlxTypedGroup<FlxText>();
 		add(personajesNombres);
 
@@ -215,6 +218,7 @@ class PlayState extends FlxState
 
 		// Crea los personajesPlayer
 		createPersonajesPlayer();
+		createPersonajesBot();
 
 		createNombresPlayer();
 
@@ -223,8 +227,13 @@ class PlayState extends FlxState
 		{
 			if (spr.ID == 1)
 			{
-				// spr.color = FlxColor.RED;
+				// Prueba
 			}
+		});
+
+		personajesBot.forEach(function(spr:Personaje)
+		{
+			spr.color = FlxColor.YELLOW;
 		});
 
 		inputText = new FlxInputText(335, 582, 100, "");
@@ -417,6 +426,51 @@ class PlayState extends FlxState
 		}
 	}
 
+	// Método para crear y posicionar los personajesBot
+	public function createPersonajesBot():Void
+	{
+		for (i in 0...6)
+		{
+			var personaje:Personaje = new Personaje(0, -20, curPersonajesBot[i]);
+			personaje.ID = i;
+			personaje.x = 640 + (i * 80);
+			personaje.y -= 30;
+			personaje.scale.set(0.25, 0.25);
+			personajesBot.add(personaje);
+		}
+
+		for (i in 6...12)
+		{
+			var personaje:Personaje = new Personaje(0, -10, curPersonajesBot[i]);
+			personaje.ID = i;
+			personaje.x = 160 + (i * 80);
+			personaje.y += 50;
+			personaje.scale.set(0.25, 0.25);
+			personajesBot.add(personaje);
+		}
+
+		for (i in 12...18)
+		{
+			var personaje:Personaje = new Personaje(0, -10, curPersonajesBot[i]);
+			personaje.ID = i;
+			personaje.x = -320 + (i * 80);
+			personaje.y += 140;
+			personaje.scale.set(0.25, 0.25);
+			personajesBot.add(personaje);
+		}
+
+		for (i in 18...24)
+		{
+			var personaje:Personaje = new Personaje(0, -10, curPersonajesBot[i]);
+			personaje.ID = i;
+			personaje.x = -800 + (i * 80);
+			personaje.y += 230;
+			personaje.scale.set(0.25, 0.25);
+			personajesBot.add(personaje);
+		}
+	}
+
+	// Crea nombres de los personajes
 	public function createNombresPlayer():Void
 	{
 		for (i in 0...6)
