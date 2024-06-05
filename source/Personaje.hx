@@ -27,7 +27,7 @@ class Personaje extends FlxSprite
 		super(x, y);
 		this.curCharacter = character; // No cuenta como caracteristica
 		this.curRopa = ropa; // blusa, traje, playera, sueter
-		this.curSombrero = sombrero;
+		this.curSombrero = sombrero; // si
 		this.curPelo = pelo; // negro, cafe, wero, pelirojo
 		this.curPiel = piel; // Oscuro, claro, cafe
 		this.curSexo = sexo; // Hombre, Mujer
@@ -38,7 +38,7 @@ class Personaje extends FlxSprite
 		// Usen los "cur" si quieren cambiar variables de un personajes, tienen de default "Ninguno";
 		switch (curCharacter)
 		{
-			case "Juan":
+			case "Juan": // ID 0
 				loadGraphic("assets/images/Juan.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -50,7 +50,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "playera";
 				curRaza = "afroamericana";
-			case "Alejandro":
+			case "Alejandro": // ID 1
 				loadGraphic("assets/images/Alejandro.png");
 				antialiasing = false;
 				curLentes = "si";
@@ -61,7 +61,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "traje";
 				curRaza = "caucasica";
-			case "Andrea":
+			case "Andrea": // ID 2
 				loadGraphic("assets/images/Andrea.png");
 				antialiasing = false;
 				curSombrero = "no";
@@ -72,7 +72,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "blusa";
 				curRaza = "caucasica";
-			case "Andres":
+			case "Andres": // ID 3
 				loadGraphic("assets/images/Andres.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -84,7 +84,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "sueter";
 				curRaza = "caucasica";
-			case "Pedro":
+			case "Pedro": // ID 4
 				loadGraphic("assets/images/Pedro.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -96,7 +96,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "playera";
 				curRaza = "caucasica";
-			case "Antonio":
+			case "Antonio": // ID 5
 				loadGraphic("assets/images/Antonio.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -108,7 +108,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "si";
 				curRopa = "sueter";
 				curRaza = "caucasica";
-			case "Adolf":
+			case "Adolf": // ID 6
 				loadGraphic("assets/images/Hit.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -120,7 +120,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "si";
 				curRopa = "traje";
 				curRaza = "caucasica";
-			case "Isabella":
+			case "Isabella": // ID 7
 				loadGraphic("assets/images/Isabella.png");
 				antialiasing = false;
 				curLentes = "si";
@@ -132,7 +132,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "playera";
 				curRaza = "caucasica";
-			case "Jenkins":
+			case "Jenkins": // ID 8
 				loadGraphic("assets/images/Jenkins.png");
 				antialiasing = false;
 				curLentes = "si";
@@ -144,7 +144,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "traje";
 				curRaza = "caucasica";
-			case "Carlos":
+			case "Carlos": // ID 9
 				loadGraphic("assets/images/Carlos.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -156,7 +156,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "si";
 				curRopa = "traje";
 				curRaza = "caucasica";
-			case "Jun":
+			case "Jun": // ID 10
 				loadGraphic("assets/images/Jun.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -168,7 +168,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "playera";
 				curRaza = "asiatica";
-			case "Kazuma":
+			case "Kazuma": // ID 11
 				loadGraphic("assets/images/Kazuma.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -180,7 +180,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "traje";
 				curRaza = "asiatica";
-			case "Kevin":
+			case "Kevin": // ID 12
 				loadGraphic("assets/images/Kevin.png");
 				antialiasing = false;
 				curLentes = "si";
@@ -192,7 +192,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "playera";
 				curRaza = "caucasica";
-			case "Leticia":
+			case "Leticia": // ID 13
 				loadGraphic("assets/images/Leticia.png");
 				antialiasing = false;
 				curLentes = "si";
@@ -204,7 +204,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "playera";
 				curRaza = "caucasica";
-			case "Lucas":
+			case "Lucas": // ID 14
 				loadGraphic("assets/images/Lucas.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -216,7 +216,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "traje";
 				curRaza = "caucasica";
-			case "Lucy":
+			case "Lucy": // ID 15
 				loadGraphic("assets/images/Lucy.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -228,7 +228,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "blusa";
 				curRaza = "caucasica";
-			case "Maria":
+			case "Maria": // ID 16
 				loadGraphic("assets/images/Maria.png");
 				antialiasing = false;
 				curLentes = "si";
@@ -240,7 +240,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "blusa";
 				curRaza = "afroamericana";
-			case "Miyagi":
+			case "Miyagi": // ID 17
 				loadGraphic("assets/images/Miyagi.png");
 				antialiasing = false;
 				curLentes = "si";
@@ -252,7 +252,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "si";
 				curRopa = "playera";
 				curRaza = "asiatica";
-			case "Rafa":
+			case "Rafa": // ID 18
 				loadGraphic("assets/images/Rafa.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -264,11 +264,11 @@ class Personaje extends FlxSprite
 				curBelloFacial = "si";
 				curRopa = "playera";
 				curRaza = "caucasica";
-			case "Raul":
+			case "Raul": // ID 19
 				loadGraphic("assets/images/Raul.png");
 				antialiasing = false;
 				curLentes = "si";
-				curSombrero = "no";
+				curSombrero = "si";
 				curPelo = "cafe";
 				curPiel = "clara";
 				curSexo = "Hombre";
@@ -276,7 +276,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "sueter";
 				curRaza = "caucasica";
-			case "Regina":
+			case "Regina": // ID 20
 				loadGraphic("assets/images/Regina.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -288,7 +288,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "blusa";
 				curRaza = "caucasica";
-			case "Roberto":
+			case "Roberto": // ID 21
 				loadGraphic("assets/images/Roberto.png");
 				antialiasing = false;
 				curLentes = "si";
@@ -300,7 +300,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "si";
 				curRopa = "sueter";
 				curRaza = "caucasica";
-			case "Sofia":
+			case "Sofia": // ID 22
 				loadGraphic("assets/images/Sofia.png");
 				antialiasing = false;
 				curLentes = "no";
@@ -312,7 +312,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "no";
 				curRopa = "traje";
 				curRaza = "caucasica";
-			case "Travis":
+			case "Travis": // ID 23
 				loadGraphic("assets/images/Travis.png");
 				antialiasing = false;
 				curLentes = "si";
@@ -324,7 +324,7 @@ class Personaje extends FlxSprite
 				curBelloFacial = "si";
 				curRopa = "sueter";
 				curRaza = "afroamericana";
-			case "Valentina":
+			case "Valentina": // ID 24
 				loadGraphic("assets/images/Valentina.png");
 				antialiasing = false;
 				curLentes = "si";
