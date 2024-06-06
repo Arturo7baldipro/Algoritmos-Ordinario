@@ -15,17 +15,24 @@ class PlayState extends FlxState
 {
 	var gameOver:Bool = false;
 	var personajesNombres = new FlxTypedGroup<FlxText>();
+
 	var personajesPlayer = new FlxTypedGroup<Personaje>();
+
 	var curPersonajesPlayer:Array<String> = [
 		/*'Pepe', 'Sech'*/ 'juan', 'alejandro', 'andrea', 'andres', 'pedro', 'antonio', 'adolf', 'isabella', 'jenkins', 'carlos', 'jun', 'kazuma', 'kevin',
 		'leticia', 'lucas', 'lucy', 'maria', 'miyagi', 'rafa', 'raul', 'regina', 'roberto', 'sofia', 'travis', 'valentina'
 	];
 
 	var personajesBot = new FlxTypedGroup<Personaje>();
+
 	var curPersonajesBot:Array<String> = [
 		/*'Pepe', 'Sech'*/ 'juan', 'alejandro', 'andrea', 'andres', 'pedro', 'antonio', 'adolf', 'isabella', 'jenkins', 'carlos', 'jun', 'kazuma', 'kevin',
 		'leticia', 'lucas', 'lucy', 'maria', 'miyagi', 'rafa', 'raul', 'regina', 'roberto', 'sofia', 'travis', 'valentina'
 	];
+
+	// Con este variable se accede al personaje aleatorio
+	var personajeAleatorio = new FlxTypedGroup<Personaje>();
+
 	private var inputText:FlxInputText;
 
 	override public function create()
@@ -221,6 +228,8 @@ class PlayState extends FlxState
 		createPersonajesBot();
 
 		createNombresPlayer();
+
+		agregarPersonajeAleatorio();
 
 		// Para acceder aun Personaje Especifico
 		personajesPlayer.forEach(function(spr:Personaje)
@@ -448,10 +457,18 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 
-		// Prueba para detectar si funciona la busqueda lineal
+		// Con Esto probe que el randomizador funciona
 		if (FlxG.keys.justPressed.UP)
 		{
-			linealSearch(curPersonajesPlayer, "adrian");
+			// agregarPersonajeAleatorio();
+
+			personajeAleatorio.forEach(function(spr:Personaje)
+			{
+				if (spr.curCharacter == 'juan')
+				{
+					FlxG.camera.flash(FlxColor.WHITE, 1);
+				}
+			});
 		}
 
 		if (FlxG.keys.justPressed.ESCAPE)
@@ -826,6 +843,20 @@ class PlayState extends FlxState
 	{
 		FlxG.camera.flash(FlxColor.RED, 1);
 	}
+
+	// IMPORTANTE: Solo usar una vez la funcion ya que si se usa mas de una vez agregara otro personaje a la lista y si eso pasa el bot tendra mas personajes que advinar (feo)
+	public function agregarPersonajeAleatorio():Void
+	{
+		var indice:Int = FlxG.random.int(0, personajesBot.length - 1);
+		var personajeAleatorio:Personaje = cast(personajesBot.members[indice], Personaje);
+
+		var nuevoPersonaje:Personaje = new Personaje(0, 0, personajeAleatorio.curCharacter);
+
+		this.personajeAleatorio.add(nuevoPersonaje);
+
+		// Añadimos el personaje a la pantalla
+		// add(nuevoPersonaje);
+	}
 }
 
 class Randomizer
@@ -837,6 +868,40 @@ class Randomizer
 		// Inicializa el array con los números del 1 al 21
 		numeros = new Array<Int>();
 		for (i in 1...22)
+		{
+			numeros.push(i);
+		}
+	}
+
+	public function obtenerNumeroAleatorio():Int
+	{
+		// Comprueba si el array está vacío
+		if (numeros.length == 0)
+		{
+			throw "No quedan números";
+		}
+
+		// Genera un índice aleatorio
+		var indiceAleatorio = Math.floor(Math.random() * numeros.length);
+
+		// Obtiene y elimina el número en el índice aleatorio
+		var numero = numeros[indiceAleatorio];
+		numeros.splice(indiceAleatorio, 1);
+
+		return numero;
+	}
+}
+
+// Ta feo el FlxRando, NO LO USEN ENSERIO EL FLXRANDOM QUE MENCIONE ESTA MUY FEO ESTE ESTA MEJOR
+class RandomizerPersonajeRandom
+{
+	public var numeros:Array<Int>;
+
+	public function new()
+	{
+		// Inicializa el array con los números del 1 al 21
+		numeros = new Array<Int>();
+		for (i in 1...24)
 		{
 			numeros.push(i);
 		}
