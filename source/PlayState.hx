@@ -651,12 +651,25 @@ class PlayState extends FlxState
 
 			// Insertar aquí cuando se terminen las 8 iteraciones y el bot empiece a adivinar aleatoriamente
 
-			/* 
-				personajeAleatorio.forEach(function(sprA:Personaje)
-				{
+			var personajesRestantes:Array<Personaje> = [];
+			personajeAleatorio.forEach(function(sprA:Personaje)
+			{
+				/*if (!spr.isKilled())
+					{
+						personajesRestantes.push(spr);
+				}*/
+			});
 
-				});
-			 */
+			if (personajesRestantes.length > 0)
+			{
+				var indiceAleatorio:Int = FlxG.random.int(0, personajesRestantes.length - 1);
+				var personajeAdivinado:Personaje = personajesRestantes[indiceAleatorio];
+				trace("El bot adivina que el personaje es: " + personajeAdivinado.curCharacter);
+			}
+			else
+			{
+				trace("No quedan personajes para adivinar.");
+			}
 		}
 	}
 
