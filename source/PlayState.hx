@@ -957,7 +957,7 @@ class PlayState extends FlxState
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
 			{
-				if (spr.curRaza == 'afroamericana' && sprA.curRaza == 'afroamericana')
+				if (spr.curRaza == 'afroamericana' && sprA.curRaza != 'afroamericana')
 				{
 					spr.kill();
 				}
@@ -967,7 +967,16 @@ class PlayState extends FlxState
 
 	public function caucasicoFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curRaza == 'caucasica' && sprA.curRaza != 'caucasica')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function asiaticoFunction_SI()
@@ -1079,6 +1088,8 @@ class PlayState extends FlxState
 		var nuevoPersonaje:Personaje = new Personaje(0, 0, personajeAleatorio.curCharacter);
 
 		this.personajeAleatorio.add(nuevoPersonaje);
+
+		trace(nuevoPersonaje.curCharacter);
 
 		// Añadimos el personaje a la pantalla
 		// add(nuevoPersonaje);
