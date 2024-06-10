@@ -981,102 +981,282 @@ class PlayState extends FlxState
 
 	public function asiaticoFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curRaza == 'asiatico' && sprA.curRaza != 'asiatico')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function playeraFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curRopa == 'playera' && sprA.curRopa != 'playera')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function sueterFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curRopa == 'sueter' && sprA.curRopa != 'sueter')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function trajeFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curRopa == 'traje' && sprA.curRopa != 'traje')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function blusaFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curRopa == 'blusa' && sprA.curRopa != 'blusa')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function gorraFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curSombrero == 'si' && sprA.curSombrero != 'si')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function peloNegroFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curPelo == 'negro' && sprA.curRopa != 'negro')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function peloCafeFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curPelo == 'cafe' && sprA.curPelo != 'cafe')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function peloWeroFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curPelo == 'wero' && sprA.curPelo != 'wero')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function peloPelirojoFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curPelo == 'pelirojo' && sprA.curPelo != 'pelirojo')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function pielOscuraFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curPiel == 'oscura' && sprA.curPiel != 'oscura')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function pielCafeFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curPiel == 'cafe' && sprA.curPiel != 'cafe')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function pielClaraFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curPiel == 'clara' && sprA.curPiel != 'clara')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function hombreFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curSexo == 'pelirojo' && sprA.curSexo != 'pelirojo')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function mujerFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curSexo == 'mujer' && sprA.curSexo != 'mujer')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function jovenFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curEdad == 'joven' && sprA.curSexo != 'joven')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function mayorFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curEdad == 'mayor' && sprA.curSexo != 'mayor')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function belloFacialFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curBelloFacial == 'si' && sprA.curBelloFacial != 'si')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function lentesFunction_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curLentes == 'lentes' && sprA.curLentes != 'lentes')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	public function peloBlancoFuncion_SI()
 	{
-		FlxG.camera.flash(FlxColor.RED, 1);
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			personajesPlayer.forEach(function(spr:Personaje)
+			{
+				if (spr.curPelo == 'blanco' && sprA.curPelo != 'blanco')
+				{
+					spr.kill();
+				}
+			});
+		});
 	}
 
 	// IMPORTANTE: Solo usar una vez la funcion ya que si se usa mas de una vez agregara otro personaje a la lista y si eso pasa el bot tendra mas personajes que advinar (feo)
