@@ -34,7 +34,8 @@ class PlayState extends FlxState
 
 	// Con este variable se accede al personaje aleatorio
 	var personajeAleatorio = new FlxTypedGroup<Personaje>();
-	var personajeAleatorioTXT = new FlxTypedGroup<Personaje>();
+
+	public static var personajeAleatorioTXT = new FlxTypedGroup<Personaje>();
 
 	private var inputText:FlxInputText;
 
@@ -65,7 +66,7 @@ class PlayState extends FlxState
 		asiaticoTXT.size = 10;
 		add(asiaticoTXT);
 
-		var asiaticoBTS:FlxButton = new FlxButton(caucasicoTXT.x + 90, asiaticoTXT.y, "Si", caucasicoFunction_SI);
+		var asiaticoBTS:FlxButton = new FlxButton(caucasicoTXT.x + 90, asiaticoTXT.y, "Si", asiaticoFunction_SI);
 		add(asiaticoBTS);
 
 		var playeraTXT:FlxText = new FlxText(3, asiaticoTXT.y + 20);
@@ -113,7 +114,7 @@ class PlayState extends FlxState
 		peloNegroTXT.size = 10;
 		add(peloNegroTXT);
 
-		var peloNegroBTS:FlxButton = new FlxButton(peloNegroTXT.x + 90, peloNegroTXT.y, "Si", peloCafeFunction_SI);
+		var peloNegroBTS:FlxButton = new FlxButton(peloNegroTXT.x + 90, peloNegroTXT.y, "Si", peloNegroFunction_SI);
 		add(peloNegroBTS);
 
 		var peloCafeTXT:FlxText = new FlxText(3, peloNegroTXT.y + 20);
@@ -121,7 +122,7 @@ class PlayState extends FlxState
 		peloCafeTXT.size = 10;
 		add(peloCafeTXT);
 
-		var peloCafeBTS:FlxButton = new FlxButton(peloCafeTXT.x + 90, peloCafeTXT.y, "Si", peloNegroFunction_SI);
+		var peloCafeBTS:FlxButton = new FlxButton(peloCafeTXT.x + 90, peloCafeTXT.y, "Si", peloCafeFunction_SI);
 		add(peloCafeBTS);
 
 		var peloWeroTXT:FlxText = new FlxText(3, peloCafeTXT.y + 20);
