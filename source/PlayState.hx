@@ -13,7 +13,9 @@ import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
+	var counter:Int = 1;
 	var gameOver:Bool = false;
+	var playerTurn:Bool = true;
 	var personajesNombres = new FlxTypedGroup<FlxText>();
 
 	var personajesPlayer = new FlxTypedGroup<Personaje>();
@@ -214,7 +216,7 @@ class PlayState extends FlxState
 		peloBlancoTXT.size = 10;
 		add(peloBlancoTXT);
 
-		var peloBlancoBTS:FlxButton = new FlxButton(peloBlancoTXT.x + 90, peloBlancoTXT.y, "Si", lentesFunction_SI);
+		var peloBlancoBTS:FlxButton = new FlxButton(peloBlancoTXT.x + 90, peloBlancoTXT.y, "Si", peloBlancoFuncion_SI);
 		add(peloBlancoBTS);
 
 		FlxG.mouse.visible = true;
@@ -262,14 +264,12 @@ class PlayState extends FlxState
 		inputTXT.size = 10;
 		add(inputTXT);
 
-		inteligenciaInteligensiosa();
+		// inteligenciaInteligensiosa();
 	}
 
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-
-		inteligenciaInteligensiosa();
 
 		// Con Esto probe que el randomizador funciona
 		if (FlxG.keys.justPressed.UP)
@@ -300,17 +300,38 @@ class PlayState extends FlxState
 		});
 
 		// Funciona (ahora mismo esta con las caracteristicas de sech)
-		personajesPlayer.forEach(function(spr:Personaje)
+		personajeAleatorio.forEach(function(spr:Personaje)
 		{
 			if (inputText.text == spr.curCharacter && FlxG.keys.justPressed.ENTER)
 			{
 				spr.kill();
 				inputText.text = "";
+				openSubState(new WinSubstate());
+			}
+			else if (inputText.text != spr.curCharacter && FlxG.keys.justPressed.ENTER)
+			{
+				inputText.text = "";
+				openSubState(new GameOverSubstate());
 			}
 		});
 
-		do {}
-		while (gameOver = false);
+		if (!gameOver)
+		{
+			if (!playerTurn)
+			{
+				var counterString:String = Std.string(counter);
+				trace("Ete Counter: " + counterString);
+				// turno de la ai
+
+				if (counter >= 5)
+				{
+					bot_Adivina();
+				}
+
+				turnoInteligencia();
+				playerTurn = true;
+			}
+		}
 	}
 
 	// Funciona
@@ -326,325 +347,358 @@ class PlayState extends FlxState
 		}
 	}
 
-	public function turnoInteligencia():Void {}
+	private function turnoInteligencia():Void
+	{
+		inteligenciaInteligensiosa();
+	}
+
+	private function thePlayerTurn():Void
+	{
+		if (playerTurn && !gameOver)
+		{
+			// Fin del turno del jugador
+			playerTurn = false;
+		}
+	}
 
 	// Inteligencia
 	public function inteligenciaInteligensiosa()
 	{
+		counter++;
 		var randomizer = new Randomizer();
-		var counter:Int = 0;
 
-		while (counter < 8)
+		var numeroAleatorio = randomizer.obtenerNumeroAleatorio();
+		trace(numeroAleatorio); // Imprime el número aleatorio
+
+		switch (numeroAleatorio)
 		{
-			var numeroAleatorio = randomizer.obtenerNumeroAleatorio();
-			trace(numeroAleatorio); // Imprime el número aleatorio
+			// 21 opciones
+			case 1: // blusa
 
-			counter++;
-			switch (numeroAleatorio)
-			{
-				// 21 opciones
-				case 1: // blusa
-
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (spr.curRopa != 'blusa' && spr.ID == 2 || spr.ID == 15 || spr.ID == 16 || spr.ID == 20 || spr.ID == 24)
 						{
-							if (spr.curRopa != 'blusa' && spr.ID == 2 || spr.ID == 15 || spr.ID == 16 || spr.ID == 20 || spr.ID == 24)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 2: // traje
+			case 2: // traje
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curRopa != 'traje' && spr.ID == 1 || spr.ID == 6 || spr.ID == 8 || spr.ID == 9 || spr.ID == 11 || spr.ID == 14 || spr.ID == 22)
 						{
-							if (sprA.curRopa != 'traje' && spr.ID == 1 || spr.ID == 6 || spr.ID == 8 || spr.ID == 9 || spr.ID == 11 || spr.ID == 14
-								|| spr.ID == 22)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 3: // playera
+			case 3: // playera
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curRopa != 'playera' && spr.ID == 0 || spr.ID == 4 || spr.ID == 7 || spr.ID == 10 || spr.ID == 12 || spr.ID == 13
+							|| spr.ID == 17 || spr.ID == 18)
 						{
-							if (sprA.curRopa != 'playera' && spr.ID == 0 || spr.ID == 4 || spr.ID == 7 || spr.ID == 10 || spr.ID == 12 || spr.ID == 13
-								|| spr.ID == 17 || spr.ID == 18)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 4: // sueter
+			case 4: // sueter
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curRopa != 'sueter' && spr.ID == 3 || spr.ID == 5 || spr.ID == 19 || spr.ID == 21 || spr.ID == 23)
 						{
-							if (sprA.curRopa != 'sueter' && spr.ID == 3 || spr.ID == 5 || spr.ID == 19 || spr.ID == 21 || spr.ID == 23)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 5: // tiene sombrero
+			case 5: // tiene sombrero
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curSombrero != 'si' && spr.ID == 0 || spr.ID == 18 || spr.ID == 19)
 						{
-							if (sprA.curSombrero != 'si' && spr.ID == 0 || spr.ID == 18 || spr.ID == 19)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 6: // pelo negro
+			case 6: // pelo negro
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curPelo != 'negro' && spr.ID == 0 || spr.ID == 1 || spr.ID == 5 || spr.ID == 7 || spr.ID == 10 || spr.ID == 11
+							|| spr.ID == 12 || spr.ID == 13 || spr.ID == 14 || spr.ID == 23)
 						{
-							if (sprA.curPelo != 'negro' && spr.ID == 0 || spr.ID == 1 || spr.ID == 5 || spr.ID == 7 || spr.ID == 10 || spr.ID == 11
-								|| spr.ID == 12 || spr.ID == 13 || spr.ID == 14 || spr.ID == 23)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 7: // pelo cafe
+			case 7: // pelo cafe
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curPelo != 'cafe' && spr.ID == 2 || spr.ID == 3 || spr.ID == 4 || spr.ID == 16 || spr.ID == 18 || spr.ID == 19
+							|| spr.ID == 20 || spr.ID == 24)
 						{
-							if (sprA.curPelo != 'cafe' && spr.ID == 2 || spr.ID == 3 || spr.ID == 4 || spr.ID == 16 || spr.ID == 18 || spr.ID == 19
-								|| spr.ID == 20 || spr.ID == 24)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 8: // pelo wero
+			case 8: // pelo wero
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curPelo != 'wero' && spr.ID == 15)
 						{
-							if (sprA.curPelo != 'wero' && spr.ID == 15)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 9: // pelo pelirrojo
+			case 9: // pelo pelirrojo
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curPelo != 'pelirojo' && spr.ID == 22)
 						{
-							if (sprA.curPelo != 'pelirojo' && spr.ID == 22)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 10: // piel oscura
+			case 10: // piel oscura
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curPiel != 'oscura' && spr.ID == 0 || spr.ID == 2)
 						{
-							if (sprA.curPiel != 'oscura' && spr.ID == 0 || spr.ID == 2)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 11: // piel cafe
+			case 11: // piel cafe
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curPiel != 'cafe' && spr.ID == 23 || spr.ID == 16)
 						{
-							if (sprA.curPiel != 'cafe' && spr.ID == 23 || spr.ID == 16)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 12: // piel clara
+			case 12: // piel clara
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curPiel != 'clara' && spr.ID == 1 || spr.ID == 3 || spr.ID == 4 || spr.ID == 5 || spr.ID == 6 || spr.ID == 7
+							|| spr.ID == 8 || spr.ID == 9 || spr.ID == 10 || spr.ID == 11 || spr.ID == 12 || spr.ID == 13 || spr.ID == 14 || spr.ID == 15
+							|| spr.ID == 17 || spr.ID == 18 || spr.ID == 19 || spr.ID == 20 || spr.ID == 21 || spr.ID == 22 || spr.ID == 24)
 						{
-							if (sprA.curPiel != 'clara' && spr.ID == 1 || spr.ID == 3 || spr.ID == 4 || spr.ID == 5 || spr.ID == 6 || spr.ID == 7
-								|| spr.ID == 8 || spr.ID == 9 || spr.ID == 10 || spr.ID == 11 || spr.ID == 12 || spr.ID == 13 || spr.ID == 14
-								|| spr.ID == 15 || spr.ID == 17 || spr.ID == 18 || spr.ID == 19 || spr.ID == 20 || spr.ID == 21 || spr.ID == 22 || spr.ID == 24)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 13: // hombre
+			case 13: // hombre
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curSexo != 'hombre' && spr.ID == 0 || spr.ID == 1 || spr.ID == 2 || spr.ID == 3 || spr.ID == 5 || spr.ID == 6
+							|| spr.ID == 8 || spr.ID == 9 || spr.ID == 10 || spr.ID == 11 || spr.ID == 12 || spr.ID == 13 || spr.ID == 14 || spr.ID == 15
+							|| spr.ID == 17 || spr.ID == 18 || spr.ID == 19 || spr.ID == 23)
 						{
-							if (sprA.curSexo != 'hombre' && spr.ID == 0 || spr.ID == 1 || spr.ID == 2 || spr.ID == 3 || spr.ID == 5 || spr.ID == 6
-								|| spr.ID == 8 || spr.ID == 9 || spr.ID == 10 || spr.ID == 11 || spr.ID == 12 || spr.ID == 13 || spr.ID == 14
-								|| spr.ID == 15 || spr.ID == 17 || spr.ID == 18 || spr.ID == 19 || spr.ID == 23)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 14: // mujer
+			case 14: // mujer
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curSexo != 'mujer' && spr.ID == 4 || spr.ID == 7 || spr.ID == 13 || spr.ID == 14 || spr.ID == 16 || spr.ID == 20
+							|| spr.ID == 22 || spr.ID == 24)
 						{
-							if (sprA.curSexo != 'mujer' && spr.ID == 4 || spr.ID == 7 || spr.ID == 13 || spr.ID == 14 || spr.ID == 16 || spr.ID == 20
-								|| spr.ID == 22 || spr.ID == 24)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 15: // joven
+			case 15: // joven
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curEdad != 'joven' && spr.ID == 0 || spr.ID == 1 || spr.ID == 2 || spr.ID == 3 || spr.ID == 4 || spr.ID == 5
+							|| spr.ID == 6 || spr.ID == 7 || spr.ID == 10 || spr.ID == 11 || spr.ID == 12 || spr.ID == 14 || spr.ID == 15 || spr.ID == 16
+							|| spr.ID == 18 || spr.ID == 19 || spr.ID == 20 || spr.ID == 22 || spr.ID == 23 || spr.ID == 24)
 						{
-							if (sprA.curEdad != 'joven' && spr.ID == 0 || spr.ID == 1 || spr.ID == 2 || spr.ID == 3 || spr.ID == 4 || spr.ID == 5
-								|| spr.ID == 6 || spr.ID == 7 || spr.ID == 10 || spr.ID == 11 || spr.ID == 12 || spr.ID == 14 || spr.ID == 15
-								|| spr.ID == 16 || spr.ID == 18 || spr.ID == 19 || spr.ID == 20 || spr.ID == 22 || spr.ID == 23 || spr.ID == 24)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 16: // mayor de edad
+			case 16: // mayor de edad
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curEdad != 'mayor' && spr.ID == 21 || spr.ID == 17 || spr.ID == 13 || spr.ID == 9 || spr.ID == 8)
 						{
-							if (sprA.curEdad != 'mayor' && spr.ID == 21 || spr.ID == 17 || spr.ID == 13 || spr.ID == 9 || spr.ID == 8)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 17: // bello facial
+			case 17: // bello facial
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curBelloFacial != 'si' && spr.ID == 5 || spr.ID == 6 || spr.ID == 9 || spr.ID == 18 || spr.ID == 21 || spr.ID == 23)
 						{
-							if (sprA.curBelloFacial != 'si' && spr.ID == 5 || spr.ID == 6 || spr.ID == 9 || spr.ID == 18 || spr.ID == 21 || spr.ID == 23)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 18: // afroamericano
+			case 18: // afroamericano
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curRaza != 'afroamericano' && spr.ID == 0 || spr.ID == 16 || spr.ID == 24)
 						{
-							if (sprA.curRaza != 'afroamericano' && spr.ID == 0 || spr.ID == 16 || spr.ID == 24)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 19: // caucasico
+			case 19: // caucasico
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curRaza != 'caucasico' && spr.ID == 1 || spr.ID == 2 || spr.ID == 3 || spr.ID == 4 || spr.ID == 5 || spr.ID == 6
+							|| spr.ID == 7 || spr.ID == 8 || spr.ID == 9 || spr.ID == 12 || spr.ID == 13 || spr.ID == 14 || spr.ID == 15 || spr.ID == 18
+							|| spr.ID == 19 || spr.ID == 20 || spr.ID == 21 || spr.ID == 22 || spr.ID == 23)
 						{
-							if (sprA.curRaza != 'caucasico' && spr.ID == 1 || spr.ID == 2 || spr.ID == 3 || spr.ID == 4 || spr.ID == 5 || spr.ID == 6
-								|| spr.ID == 7 || spr.ID == 8 || spr.ID == 9 || spr.ID == 12 || spr.ID == 13 || spr.ID == 14 || spr.ID == 15 || spr.ID == 18
-								|| spr.ID == 19 || spr.ID == 20 || spr.ID == 21 || spr.ID == 22 || spr.ID == 23)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 20: // asiatico
+			case 20: // asiatico
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curRaza != 'asiatico' && spr.ID == 17 || spr.ID == 11 || spr.ID == 10)
 						{
-							if (sprA.curRaza != 'asiatico' && spr.ID == 17 || spr.ID == 11 || spr.ID == 10)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 21: // usa lentes
+			case 21: // usa lentes
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curLentes != 'si' && spr.ID == 1 || spr.ID == 7 || spr.ID == 8 || spr.ID == 12 || spr.ID == 13 || spr.ID == 16
+							|| spr.ID == 17 || spr.ID == 19 || spr.ID == 21 || spr.ID == 23 || spr.ID == 24)
 						{
-							if (sprA.curLentes != 'si' && spr.ID == 1 || spr.ID == 7 || spr.ID == 8 || spr.ID == 12 || spr.ID == 13 || spr.ID == 16
-								|| spr.ID == 17 || spr.ID == 19 || spr.ID == 21 || spr.ID == 23 || spr.ID == 24)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
+				});
 
-				case 22: // pelo blanco
+			case 22: // pelo blanco
 
-					personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorio.forEach(function(sprA:Personaje)
+				{
+					personajesBot.forEach(function(spr:Personaje)
 					{
-						personajesBot.forEach(function(spr:Personaje)
+						if (sprA.curPelo != 'blanco' && spr.ID == 1 || spr.ID == 7 || spr.ID == 8 || spr.ID == 12 || spr.ID == 13 || spr.ID == 16
+							|| spr.ID == 17 || spr.ID == 19 || spr.ID == 21 || spr.ID == 23 || spr.ID == 24)
 						{
-							if (sprA.curPelo != 'blanco' && spr.ID == 1 || spr.ID == 7 || spr.ID == 8 || spr.ID == 12 || spr.ID == 13 || spr.ID == 16
-								|| spr.ID == 17 || spr.ID == 19 || spr.ID == 21 || spr.ID == 23 || spr.ID == 24)
-							{
-								spr.kill();
-							}
-						});
+							spr.kill();
+						}
 					});
-			}
+				});
 		}
+
+		/*
+			personajeAleatorio.forEach(function(sprA:Personaje)
+			{
+				if (personajesBot.length > 0)
+				{
+					var personajeAdivinado = personajesBot.members[numeroAleatorio];
+					if (personajeAdivinado != null)
+					{
+						trace("El bot adivina que el personaje es: " + personajeAdivinado.curCharacter);
+						openSubState(new GameOverSubstate());
+					}
+				}
+				else
+				{
+					trace("No quedan personajes para adivinar.");
+				}
+			});
+		 */
+	}
+
+	public function bot_Adivina()
+	{
+		var randomizer = new Randomizer();
+		var numeroAleatorio = randomizer.obtenerNumeroAleatorio();
+		trace(numeroAleatorio); // Imprime el número aleatorio
 
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
@@ -655,6 +709,7 @@ class PlayState extends FlxState
 				if (personajeAdivinado != null)
 				{
 					trace("El bot adivina que el personaje es: " + personajeAdivinado.curCharacter);
+					openSubState(new GameOverSubstate());
 				}
 			}
 			else
@@ -890,6 +945,7 @@ class PlayState extends FlxState
 
 	public function afroamericanoFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -904,6 +960,7 @@ class PlayState extends FlxState
 
 	public function caucasicoFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -918,6 +975,7 @@ class PlayState extends FlxState
 
 	public function asiaticoFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -932,6 +990,7 @@ class PlayState extends FlxState
 
 	public function playeraFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -946,6 +1005,7 @@ class PlayState extends FlxState
 
 	public function sueterFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -960,6 +1020,7 @@ class PlayState extends FlxState
 
 	public function trajeFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -974,6 +1035,7 @@ class PlayState extends FlxState
 
 	public function blusaFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -988,6 +1050,7 @@ class PlayState extends FlxState
 
 	public function gorraFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1002,11 +1065,12 @@ class PlayState extends FlxState
 
 	public function peloNegroFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
 			{
-				if (spr.curPelo == 'negro' && sprA.curRopa != 'negro')
+				if (spr.curPelo == 'negro' && sprA.curPelo != 'negro')
 				{
 					spr.kill();
 				}
@@ -1016,6 +1080,7 @@ class PlayState extends FlxState
 
 	public function peloCafeFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1030,6 +1095,7 @@ class PlayState extends FlxState
 
 	public function peloWeroFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1044,6 +1110,7 @@ class PlayState extends FlxState
 
 	public function peloPelirojoFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1058,6 +1125,7 @@ class PlayState extends FlxState
 
 	public function pielOscuraFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1072,6 +1140,7 @@ class PlayState extends FlxState
 
 	public function pielCafeFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1086,6 +1155,7 @@ class PlayState extends FlxState
 
 	public function pielClaraFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1100,6 +1170,7 @@ class PlayState extends FlxState
 
 	public function hombreFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1114,6 +1185,7 @@ class PlayState extends FlxState
 
 	public function mujerFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1128,11 +1200,12 @@ class PlayState extends FlxState
 
 	public function jovenFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
 			{
-				if (spr.curEdad == 'joven' && sprA.curSexo != 'joven')
+				if (spr.curEdad == 'joven' && sprA.curEdad != 'joven')
 				{
 					spr.kill();
 				}
@@ -1142,11 +1215,12 @@ class PlayState extends FlxState
 
 	public function mayorFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
 			{
-				if (spr.curEdad == 'mayor' && sprA.curSexo != 'mayor')
+				if (spr.curEdad == 'mayor' && sprA.curEdad != 'mayor')
 				{
 					spr.kill();
 				}
@@ -1156,6 +1230,7 @@ class PlayState extends FlxState
 
 	public function belloFacialFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1170,6 +1245,7 @@ class PlayState extends FlxState
 
 	public function lentesFunction_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
@@ -1184,6 +1260,7 @@ class PlayState extends FlxState
 
 	public function peloBlancoFuncion_SI()
 	{
+		thePlayerTurn();
 		personajeAleatorio.forEach(function(sprA:Personaje)
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
