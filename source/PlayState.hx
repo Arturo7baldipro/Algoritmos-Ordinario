@@ -1252,7 +1252,7 @@ class PlayState extends FlxState
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
 			{
-				if (spr.curLentes == 'lentes' && sprA.curLentes != 'lentes')
+				if (spr.curLentes == 'si' && sprA.curLentes != 'si')
 				{
 					spr.kill();
 				}
