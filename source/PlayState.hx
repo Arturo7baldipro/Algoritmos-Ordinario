@@ -214,7 +214,7 @@ class PlayState extends FlxState
 		add(lentesBTS);
 
 		var peloBlancoTXT:FlxText = new FlxText(afroamericanoTXT.x + 260, lentesTXT.y + 20);
-		peloBlancoTXT.text = "Lentes";
+		peloBlancoTXT.text = "Pelo Blanco";
 		peloBlancoTXT.size = 10;
 		add(peloBlancoTXT);
 
@@ -325,7 +325,7 @@ class PlayState extends FlxState
 				trace("Ete Counter: " + counterString);
 				// turno de la ai
 
-				if (counter >= 5)
+				if (counter >= 3)
 				{
 					bot_Adivina();
 				}
