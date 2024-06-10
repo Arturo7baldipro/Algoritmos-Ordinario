@@ -34,6 +34,7 @@ class PlayState extends FlxState
 
 	// Con este variable se accede al personaje aleatorio
 	var personajeAleatorio = new FlxTypedGroup<Personaje>();
+	var personajeAleatorioTXT = new FlxTypedGroup<Personaje>();
 
 	private var inputText:FlxInputText;
 
@@ -638,7 +639,7 @@ class PlayState extends FlxState
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curRaza != 'asiatico' && spr.ID == 17 || spr.ID == 11 || spr.ID == 10)
+						if (sprA.curRaza != 'asiatica' && spr.ID == 17 || spr.ID == 11 || spr.ID == 10)
 						{
 							spr.kill();
 						}
@@ -980,7 +981,7 @@ class PlayState extends FlxState
 		{
 			personajesPlayer.forEach(function(spr:Personaje)
 			{
-				if (spr.curRaza == 'asiatico' && sprA.curRaza != 'asiatico')
+				if (spr.curRaza == 'asiatica' && sprA.curRaza != 'asiatica')
 				{
 					spr.kill();
 				}
