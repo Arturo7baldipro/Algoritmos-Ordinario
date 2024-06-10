@@ -644,24 +644,24 @@ class PlayState extends FlxState
 						});
 					});
 			}
-
-			personajeAleatorio.forEach(function(sprA:Personaje)
-			{
-				if (personajesBot.length > 0)
-				{
-					var personajeAdivinado = personajesBot.members[numeroAleatorio];
-					if (personajeAdivinado != null)
-					{
-						trace("El bot adivina que el personaje es: " + personajeAdivinado.curCharacter);
-						openSubState(new GameOverSubstate());
-					}
-				}
-				else
-				{
-					trace("No quedan personajes para adivinar.");
-				}
-			});
 		}
+
+		personajeAleatorio.forEach(function(sprA:Personaje)
+		{
+			if (personajesBot.length > 0)
+			{
+				var indiceAleatorio = Math.floor(Math.random() * personajesBot.length);
+				var personajeAdivinado = personajesBot.members[indiceAleatorio];
+				if (personajeAdivinado != null)
+				{
+					trace("El bot adivina que el personaje es: " + personajeAdivinado.curCharacter);
+				}
+			}
+			else
+			{
+				trace("No quedan personajes para adivinar.");
+			}
+		});
 	}
 
 	// Función de comparación para ordenar alfabeticamente
