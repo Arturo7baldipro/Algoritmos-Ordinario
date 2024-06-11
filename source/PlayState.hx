@@ -366,18 +366,17 @@ class PlayState extends FlxState
 		{
 			if (!playerTurn)
 			{
-				if (counter >= 4)
+				if (counter >= 2)
 				{
 					bot_Adivina();
-				}
-				else if (counter < 4)
-				{
-					var counterString:String = Std.string(counter);
-					trace("Ete Counter: " + counterString);
-					// turno de la ai
-					turnoInteligencia();
 					playerTurn = true;
 				}
+
+				var counterString:String = Std.string(counter);
+				trace("Ete Counter: " + counterString);
+				// turno de la ai
+				turnoInteligencia();
+				playerTurn = true;
 			}
 		}
 	}
@@ -416,7 +415,7 @@ class PlayState extends FlxState
 		var randomizer = new Randomizer();
 
 		var numeroAleatorio = randomizer.obtenerNumeroAleatorio();
-		trace(numeroAleatorio); // Imprime el número aleatorio
+		// trace(numeroAleatorio); // Imprime el número aleatorio
 
 		switch (numeroAleatorio)
 		{
@@ -753,16 +752,23 @@ class PlayState extends FlxState
 		{
 			if (personajesBot.length > 0)
 			{
-				var personajeAdivinado = personajesBot.members[numeroAleatorio];
+				var indiceAleatorio = Math.floor(Math.random() * personajesBot.length);
+				var personajeAdivinado = personajesBot.members[indiceAleatorio];
 				if (personajeAdivinado != null)
 				{
 					trace("El bot adivina que el personaje es: " + personajeAdivinado.curCharacter);
+					personajesBot.remove(personajesBot.members[indiceAleatorio], true);
+				}
+				if (sprA.curCharacter == personajeAdivinado.curCharacter)
+				{
+					trace("El bot adivino el personaje es: " + sprA.curCharacter);
 					openSubState(new GameOverSubstate());
 				}
 			}
 			else
 			{
 				trace("No quedan personajes para adivinar.");
+				openSubState(new WinSubstate());
 			}
 		});
 	}
