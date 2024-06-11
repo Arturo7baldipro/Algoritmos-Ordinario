@@ -79,6 +79,7 @@ class PlayState extends FlxState
 
 	// Con este variable se accede al personaje aleatorio
 	var personajeAleatorio = new FlxTypedGroup<Personaje>();
+	var personajeAleatorioBot = new FlxTypedGroup<Personaje>();
 
 	public static var personajeAleatorioTXT = new FlxTypedGroup<Personaje>();
 
@@ -287,6 +288,7 @@ class PlayState extends FlxState
 		createNombresPlayer();
 
 		agregarPersonajeAleatorio();
+		agregarPersonajeAleatorioBot();
 
 		// Para acceder aun Personaje Especifico
 		personajesPlayer.forEach(function(spr:Personaje)
@@ -366,17 +368,19 @@ class PlayState extends FlxState
 		{
 			if (!playerTurn)
 			{
-				if (counter >= 2)
+				var counterString:String = Std.string(counter);
+				trace("Ete Counter: " + counterString);
+				if (counter >= 3)
 				{
 					bot_Adivina();
 					playerTurn = true;
 				}
-
-				var counterString:String = Std.string(counter);
-				trace("Ete Counter: " + counterString);
-				// turno de la ai
-				turnoInteligencia();
-				playerTurn = true;
+				else if (counter <= 2)
+				{
+					counter++;
+					turnoInteligencia();
+					playerTurn = true;
+				}
 			}
 		}
 	}
@@ -411,7 +415,6 @@ class PlayState extends FlxState
 	// Inteligencia
 	public function inteligenciaInteligensiosa()
 	{
-		counter++;
 		var randomizer = new Randomizer();
 
 		var numeroAleatorio = randomizer.obtenerNumeroAleatorio();
@@ -422,11 +425,11 @@ class PlayState extends FlxState
 			// 21 opciones
 			case 1: // blusa
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (spr.curRopa != 'blusa' && spr.ID == 2 || spr.ID == 15 || spr.ID == 16 || spr.ID == 20 || spr.ID == 24)
+						if (spr.curRopa != 'blusa' && spr.curRopa == 'blusa' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -435,11 +438,11 @@ class PlayState extends FlxState
 
 			case 2: // traje
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curRopa != 'traje' && spr.ID == 1 || spr.ID == 6 || spr.ID == 8 || spr.ID == 9 || spr.ID == 11 || spr.ID == 14 || spr.ID == 22)
+						if (sprA.curRopa != 'traje' && spr.curRopa == 'traje' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -448,12 +451,11 @@ class PlayState extends FlxState
 
 			case 3: // playera
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curRopa != 'playera' && spr.ID == 0 || spr.ID == 4 || spr.ID == 7 || spr.ID == 10 || spr.ID == 12 || spr.ID == 13
-							|| spr.ID == 17 || spr.ID == 18)
+						if (sprA.curRopa != 'playera' && spr.curRopa == 'playera' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -462,11 +464,11 @@ class PlayState extends FlxState
 
 			case 4: // sueter
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curRopa != 'sueter' && spr.ID == 3 || spr.ID == 5 || spr.ID == 19 || spr.ID == 21 || spr.ID == 23)
+						if (sprA.curRopa != 'sueter' && spr.curRopa == 'sueter' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -475,11 +477,11 @@ class PlayState extends FlxState
 
 			case 5: // tiene sombrero
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curSombrero != 'si' && spr.ID == 0 || spr.ID == 18 || spr.ID == 19)
+						if (sprA.curSombrero != 'si' && spr.curSombrero == 'si' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -488,12 +490,11 @@ class PlayState extends FlxState
 
 			case 6: // pelo negro
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curPelo != 'negro' && spr.ID == 0 || spr.ID == 1 || spr.ID == 5 || spr.ID == 7 || spr.ID == 10 || spr.ID == 11
-							|| spr.ID == 12 || spr.ID == 13 || spr.ID == 14 || spr.ID == 23)
+						if (sprA.curPelo != 'negro' && spr.curPelo == 'negro' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -502,12 +503,11 @@ class PlayState extends FlxState
 
 			case 7: // pelo cafe
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curPelo != 'cafe' && spr.ID == 2 || spr.ID == 3 || spr.ID == 4 || spr.ID == 16 || spr.ID == 18 || spr.ID == 19
-							|| spr.ID == 20 || spr.ID == 24)
+						if (sprA.curPelo != 'cafe' && spr.curPelo == 'cafe' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -516,11 +516,11 @@ class PlayState extends FlxState
 
 			case 8: // pelo wero
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curPelo != 'wero' && spr.ID == 15)
+						if (sprA.curPelo != 'wero' && spr.curPelo == 'wero' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -529,11 +529,11 @@ class PlayState extends FlxState
 
 			case 9: // pelo pelirrojo
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curPelo != 'pelirojo' && spr.ID == 22)
+						if (sprA.curPelo != 'pelirojo' && spr.curPelo == 'pelirojo' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -542,11 +542,11 @@ class PlayState extends FlxState
 
 			case 10: // piel oscura
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curPiel != 'oscura' && spr.ID == 0 || spr.ID == 2)
+						if (sprA.curPiel != 'oscura' && spr.curPiel == 'oscura' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -555,11 +555,11 @@ class PlayState extends FlxState
 
 			case 11: // piel cafe
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curPiel != 'cafe' && spr.ID == 23 || spr.ID == 16)
+						if (sprA.curPiel != 'cafe' && spr.curPiel == 'cafe' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -568,13 +568,11 @@ class PlayState extends FlxState
 
 			case 12: // piel clara
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curPiel != 'clara' && spr.ID == 1 || spr.ID == 3 || spr.ID == 4 || spr.ID == 5 || spr.ID == 6 || spr.ID == 7
-							|| spr.ID == 8 || spr.ID == 9 || spr.ID == 10 || spr.ID == 11 || spr.ID == 12 || spr.ID == 13 || spr.ID == 14 || spr.ID == 15
-							|| spr.ID == 17 || spr.ID == 18 || spr.ID == 19 || spr.ID == 20 || spr.ID == 21 || spr.ID == 22 || spr.ID == 24)
+						if (sprA.curPiel != 'clara' && spr.curPiel == 'clara' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -583,13 +581,11 @@ class PlayState extends FlxState
 
 			case 13: // hombre
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curSexo != 'hombre' && spr.ID == 0 || spr.ID == 1 || spr.ID == 2 || spr.ID == 3 || spr.ID == 5 || spr.ID == 6
-							|| spr.ID == 8 || spr.ID == 9 || spr.ID == 10 || spr.ID == 11 || spr.ID == 12 || spr.ID == 13 || spr.ID == 14 || spr.ID == 15
-							|| spr.ID == 17 || spr.ID == 18 || spr.ID == 19 || spr.ID == 23)
+						if (sprA.curSexo != 'hombre' && spr.curSexo == 'hombre' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -598,12 +594,11 @@ class PlayState extends FlxState
 
 			case 14: // mujer
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curSexo != 'mujer' && spr.ID == 4 || spr.ID == 7 || spr.ID == 13 || spr.ID == 14 || spr.ID == 16 || spr.ID == 20
-							|| spr.ID == 22 || spr.ID == 24)
+						if (sprA.curSexo != 'mujer' && spr.curSexo == 'mujer' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -612,13 +607,11 @@ class PlayState extends FlxState
 
 			case 15: // joven
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curEdad != 'joven' && spr.ID == 0 || spr.ID == 1 || spr.ID == 2 || spr.ID == 3 || spr.ID == 4 || spr.ID == 5
-							|| spr.ID == 6 || spr.ID == 7 || spr.ID == 10 || spr.ID == 11 || spr.ID == 12 || spr.ID == 14 || spr.ID == 15 || spr.ID == 16
-							|| spr.ID == 18 || spr.ID == 19 || spr.ID == 20 || spr.ID == 22 || spr.ID == 23 || spr.ID == 24)
+						if (sprA.curEdad != 'joven' && spr.curEdad == 'joven' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -627,11 +620,11 @@ class PlayState extends FlxState
 
 			case 16: // mayor de edad
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curEdad != 'mayor' && spr.ID == 21 || spr.ID == 17 || spr.ID == 13 || spr.ID == 9 || spr.ID == 8)
+						if (sprA.curEdad != 'mayor' && spr.curEdad == 'mayor' && spr.curCharacter != sprA.curCharacter)
 						{
 							spr.kill();
 						}
@@ -640,11 +633,11 @@ class PlayState extends FlxState
 
 			case 17: // bello facial
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curBelloFacial != 'si' && spr.ID == 5 || spr.ID == 6 || spr.ID == 9 || spr.ID == 18 || spr.ID == 21 || spr.ID == 23)
+						if (sprA.curBelloFacial != 'si' && spr.curBelloFacial == 'si' && sprA.curCharacter != spr.curCharacter)
 						{
 							spr.kill();
 						}
@@ -653,11 +646,11 @@ class PlayState extends FlxState
 
 			case 18: // afroamericano
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curRaza != 'afroamericano' && spr.ID == 0 || spr.ID == 16 || spr.ID == 24)
+						if (sprA.curRaza != 'afroamericano' && spr.curRaza == 'afroamericano' && sprA.curCharacter != spr.curCharacter)
 						{
 							spr.kill();
 						}
@@ -666,13 +659,11 @@ class PlayState extends FlxState
 
 			case 19: // caucasico
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curRaza != 'caucasica' && spr.ID == 1 || spr.ID == 2 || spr.ID == 3 || spr.ID == 4 || spr.ID == 5 || spr.ID == 6
-							|| spr.ID == 7 || spr.ID == 8 || spr.ID == 9 || spr.ID == 12 || spr.ID == 13 || spr.ID == 14 || spr.ID == 15 || spr.ID == 18
-							|| spr.ID == 19 || spr.ID == 20 || spr.ID == 21 || spr.ID == 22 || spr.ID == 23)
+						if (sprA.curRaza != 'caucasica' && spr.curRaza == 'caucasica' && sprA.curCharacter != spr.curCharacter)
 						{
 							spr.kill();
 						}
@@ -681,11 +672,11 @@ class PlayState extends FlxState
 
 			case 20: // asiatico
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curRaza != 'asiatica' && spr.ID == 17 || spr.ID == 11 || spr.ID == 10)
+						if (sprA.curRaza != 'asiatica' && spr.curRaza == 'asiatica' && sprA.curCharacter != spr.curCharacter)
 						{
 							spr.kill();
 						}
@@ -694,12 +685,11 @@ class PlayState extends FlxState
 
 			case 21: // usa lentes
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curLentes != 'si' && spr.ID == 1 || spr.ID == 7 || spr.ID == 8 || spr.ID == 12 || spr.ID == 13 || spr.ID == 16
-							|| spr.ID == 17 || spr.ID == 19 || spr.ID == 21 || spr.ID == 23 || spr.ID == 24)
+						if (sprA.curLentes != 'si' && spr.curLentes == 'si' && sprA.curCharacter != spr.curCharacter)
 						{
 							spr.kill();
 						}
@@ -708,12 +698,11 @@ class PlayState extends FlxState
 
 			case 22: // pelo blanco
 
-				personajeAleatorio.forEach(function(sprA:Personaje)
+				personajeAleatorioBot.forEach(function(sprA:Personaje)
 				{
 					personajesBot.forEach(function(spr:Personaje)
 					{
-						if (sprA.curPelo != 'blanco' && spr.ID == 1 || spr.ID == 7 || spr.ID == 8 || spr.ID == 12 || spr.ID == 13 || spr.ID == 16
-							|| spr.ID == 17 || spr.ID == 19 || spr.ID == 21 || spr.ID == 23 || spr.ID == 24)
+						if (sprA.curPelo != 'blanco' && spr.curPelo == 'blanco' && sprA.curCharacter != spr.curCharacter)
 						{
 							spr.kill();
 						}
@@ -748,7 +737,7 @@ class PlayState extends FlxState
 		var numeroAleatorio = randomizer.obtenerNumeroAleatorio();
 		trace(numeroAleatorio); // Imprime el número aleatorio
 
-		personajeAleatorio.forEach(function(sprA:Personaje)
+		personajeAleatorioBot.forEach(function(sprA:Personaje)
 		{
 			if (personajesBot.length > 0)
 			{
@@ -1380,6 +1369,21 @@ class PlayState extends FlxState
 		var nuevoPersonaje:Personaje = new Personaje(0, 0, personajeAleatorio.curCharacter);
 
 		this.personajeAleatorio.add(nuevoPersonaje);
+
+		trace(nuevoPersonaje.curCharacter);
+
+		// Añadimos el personaje a la pantalla
+		// add(nuevoPersonaje);
+	}
+
+	public function agregarPersonajeAleatorioBot():Void
+	{
+		var indice:Int = FlxG.random.int(0, personajesBot.length - 1);
+		var personajeAleatorioBot:Personaje = cast(personajesBot.members[indice], Personaje);
+
+		var nuevoPersonaje:Personaje = new Personaje(0, 0, personajeAleatorioBot.curCharacter);
+
+		this.personajeAleatorioBot.add(nuevoPersonaje);
 
 		trace(nuevoPersonaje.curCharacter);
 
